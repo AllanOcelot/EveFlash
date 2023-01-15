@@ -7,18 +7,18 @@
             EveFlash
           </span>
         </v-col>
-        <v-col class="text-right">
-          <a href="/" title="Github">
+        <v-col class="text-right links">
+          <v-btn
+            class="more-info"
+            @click="dialog = true"
+          >
+          More Information
+          </v-btn>
+          <a href="https://github.com/AllanOcelot/EveFlash" target="blank" title="Github">
             <v-icon>
             mdi-github
           </v-icon>
           </a>
-          <v-btn
-            @click="dialog = true"
-            elevation="2"
-          >
-          About {{ dialog }}
-          </v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -55,6 +55,22 @@
     font-weight: 700;
     color: #f5c745;
     text-shadow: 1px 1px 4px rgb(0 0 0 / 70%);
+  }
+
+  .links a {
+    color: #f1f1f1;
+    opacity: 0.6;
+    transition: all 0.3s;
+    text-decoration: none;
+    &:hover{
+      color: #fff;
+      opacity: 1;
+    }
+  }
+
+  .more-info {
+    margin-right: 30px;
+    background: rgba(255,255,255,0.2);
   }
 
 

@@ -13,37 +13,17 @@
         <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up. If you like it, consider donating some ISK to appear as a 'Sponsor'.</p>
         <hr>
 
-        <h3>Friends</h3>
+        <h3>People I like</h3>
         <p>If you like this, why not check out...</p>
         <div class="friends">
-          <a href="/">
+          <a v-for="(item,index) in coolPeople" :key="index" :href="item.link" target="_blank">
             <span class="icon">
-              <v-icon>
+              <v-icon v-if="item.type === 'twitch'">
                 mdi-twitch
               </v-icon>
             </span>
             <span class="desc">
-              Vinnie Dooshay
-            </span>
-          </a>
-          <a href="/">
-            <span class="icon">
-              <v-icon>
-                mdi-twitch
-              </v-icon>
-            </span>
-            <span class="desc">
-              Vinnie Dooshay
-            </span>
-          </a>
-          <a href="/">
-            <span class="icon">
-              <v-icon>
-                mdi-twitch
-              </v-icon>
-            </span>
-            <span class="desc">
-              Vinnie Dooshay
+              {{ item.desc }}
             </span>
           </a>
         </div>
@@ -62,6 +42,14 @@
   export default {
     data() {
       return {
+        coolPeople: [
+          { type: 'twitch',
+            desc: 'Vinnie Dooshay',
+            link: 'https://www.twitch.tv/vinnegar_dooshay'},
+          { type: 'twitch',
+            desc: 'Milk On Edge',
+            link: 'https://www.twitch.tv/milkonedge'}
+        ]
       }
     },
     props: ['visible'],
@@ -192,7 +180,9 @@
             }
             &:hover {
               color: #2d23c3;
-              text-decoration: underline;
+              .desc{
+                text-decoration: underline;
+              }
             }
           }
         }

@@ -29,7 +29,6 @@
           </p>
         </div>
       </transition>
-
     </v-main>
     <BottomNavigation />
   </v-app>
@@ -162,6 +161,7 @@
       initCard(){
         this.loading = true;
         const shipID = this.randomIntFromInterval(0, this.shipData.length - 1);
+        this.currentShipID = shipID;
         this.selectedShip = this.shipData[shipID];
         this.generateRandomAnswers();
         this.sanitiseAnswers();
