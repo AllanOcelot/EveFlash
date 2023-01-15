@@ -28,10 +28,12 @@
           <div v-if="cardStatus === 'correct'">
             <h3>Bingo</h3>
             <p>You know your ship!</p>
+            <p class="desc">{{ship.Desc}}</p>
           </div>
           <div v-else>
             <h3>Wrong!</h3>
             <p>It was a {{ship.Name}}.</p>
+            <p class="desc">{{ship.Desc}}</p>
           </div>
         </div>
         <v-progress-linear
@@ -59,7 +61,6 @@ export default {
   methods: {
     generateRandomImage(){
       const imageLength = this.ship.Images.length;
-      console.log(this.ship.Images)
       return this.ship.Images[Math.floor(Math.random() * (imageLength - 0) + 0)];
     },
 
@@ -155,11 +156,16 @@ export default {
       transition: opacity 0.1s;
 
       h3 {
-        font-size: 30px;
+        font-size: 38px;
         cursor: default;
       }
       p {
         cursor: default;
+        font-size: 20px;
+        &.desc {
+          font-size: 18px;
+          margin-top: 30px;
+        }
       }
 
       .content {
