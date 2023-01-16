@@ -35,8 +35,9 @@
 </template>
 
 <script>
-  import axios from 'axios';
-
+  import axios from 'axios'
+  import JSConfetti from 'js-confetti'
+  const jsConfetti = new JSConfetti()
 
   import TopNavigation from '/src/components/TopNavigation.vue'
   import BottomNavigation from '/src/components/BottomNavigation.vue'
@@ -148,6 +149,12 @@
         this.cardsPlayed++;
         if(result  === 'correct'){
           this.totalScore++;
+          if(this.totalScore % 10 == 0){
+            jsConfetti.addConfetti({
+              emojiSize: 100,
+              confettiNumber: 400,
+            })
+          }
         }
         this.previousShip = this.currentShipID;
         this.initCard()
