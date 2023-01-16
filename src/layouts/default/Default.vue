@@ -2,7 +2,7 @@
   <v-app class="main-app">
     <TopNavigation />
     <v-main class="main-content">
-      <transition name="fade">
+      <Transition name="fade" mode="out-in">
       <flash-card
         v-if="loading === false"
         :loading="loading"
@@ -22,7 +22,7 @@
         ></v-progress-circular>
       </div>
 
-      <transition name="fade">
+      <Transition name="fade" mode="out-in">
         <div class="score" v-if="loading === false">
           <p>
             You got {{ totalScore }} out of {{ cardsPlayed }} correct.
@@ -150,10 +150,7 @@
           this.totalScore++;
         }
         this.previousShip = this.currentShipID;
-        setTimeout(() => {
-          console.log('new card created')
-          this.initCard()
-        }, 3000);
+        this.initCard()
       },
 
 
@@ -171,7 +168,7 @@
       }
     },
     mounted(){
-      axios.get('/src/assets/data.json')
+      axios.get('/data.json')
       .then(res => {
         this.shipData = res.data;
         this.initCard();

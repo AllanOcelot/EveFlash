@@ -10,7 +10,8 @@
       </div>
       <div class="content">
         <h3>About</h3>
-        <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up. If you like it, consider donating some ISK to appear as a 'Sponsor'.</p>
+        <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up.</p>
+        <p>If you like it, consider donating some ISK or not podding me the next time you see me. <br> <strong>Fly Safe</strong></p>
         <hr>
 
         <h3>People I like</h3>

@@ -4,7 +4,7 @@
 
     <!-- Guess the name dude, how much easier can it be ? -->
     <div class="info easy" v-if="difficulty === 1">
-      <v-btn v-for="(item, index) in options.Names" :key="index" @click="checkEasy(item)">
+      <v-btn v-for="(item, index) in options.Names" class="blue" :key="index" @click="checkEasy(item)">
         {{ item }}
       </v-btn>
     </div>
@@ -35,6 +35,9 @@
             <p>It was a {{ship.Name}}.</p>
             <p class="desc">{{ship.Desc}}</p>
           </div>
+          <v-btn class="continue blue" @click="finished()">
+            Continue
+          </v-btn>
         </div>
         <v-progress-linear
           indeterminate
@@ -79,6 +82,9 @@ export default {
         console.log('loser!');
         this.cardStatus = 'wrong';
       }
+    },
+
+    finished() {
       this.$emit('finished', this.cardStatus)
     }
 
@@ -110,6 +116,26 @@ export default {
       background-position: center center;
     }
 
+    .v-btn.blue {
+      width: 100%;
+      margin: 10px 0;
+      border: 1px solid #4f717a;
+      border-radius: 0;
+      background: linear-gradient(1deg, #06303a, #145062);
+      color: #fff;
+      height: 50px;
+      border-radius: 0px;
+      text-shadow: 0px 0px 0px #fff;
+      opacity: 0.7;
+      transition: all 0.3s;
+      cursor: pointer;
+      &:hover {
+        opacity: 1;
+        text-shadow: 0px 0px 12px #fff;
+        box-shadow: 0 5px 10px rgb(0,0,0,0.5);
+      }
+    }
+
     .info {
       padding: 20px;
       width: 50%;
@@ -119,25 +145,6 @@ export default {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        .v-btn {
-          width: 100%;
-          margin: 10px 0;
-          border: 1px solid #4f717a;
-          border-radius: 0;
-          background: linear-gradient(1deg, #06303a, #145062);
-          color: #fff;
-          height: 50px;
-          border-radius: 0px;
-          text-shadow: 0px 0px 0px #fff;
-          opacity: 0.7;
-          transition: all 0.3s;
-          cursor: pointer;
-          &:hover {
-            opacity: 1;
-            text-shadow: 0px 0px 12px #fff;
-            box-shadow: 0 5px 10px rgb(0,0,0,0.5);
-          }
-        }
       }
     }
 
@@ -156,21 +163,24 @@ export default {
       transition: opacity 0.1s;
 
       h3 {
-        font-size: 38px;
+        font-size: 60px;
         cursor: default;
       }
       p {
         cursor: default;
         font-size: 20px;
         &.desc {
-          font-size: 18px;
-          margin-top: 30px;
+          font-size: 16px;
+          margin-top: 50px;
         }
       }
 
       .content {
-        margin: auto;
-        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        padding: 50px 25px;
+        flex-direction: column;
+        flex: 1 auto;
       }
 
       .v-progress-linear {
@@ -180,12 +190,19 @@ export default {
       }
 
       &.correct {
-        opacity: 0.85;
+        opacity: 0.97;
         background: #06320c;
       }
       &.wrong {
-        opacity: 0.85;
+        opacity: 0.97;
         background: #320606;
+      }
+
+      .v-btn {
+        margin-top: auto;
+        margin-bottom: 10px;
+        opacity: 1;
+        width: 300px;
       }
     }
   }
