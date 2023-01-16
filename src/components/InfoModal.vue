@@ -11,9 +11,9 @@
       <div class="content">
         <h3>About</h3>
         <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up.</p>
-        <p>If you like it, consider donating some ISK or not podding me the next time you see me. <br> <strong>Fly Safe</strong></p>
+        <p>If you like it, consider donating some ISK or not podding me the next time you see me. </p>
+        <p><strong>Fly Safe</strong></p>
         <hr>
-
         <h3>People I like</h3>
         <p>If you like this, why not check out...</p>
         <div class="friends">
@@ -94,6 +94,9 @@
       position: relative;
       box-sizing: border-box;
 
+      p {
+        margin-bottom: 20px;
+      }
 
       .close {
         position: absolute;
