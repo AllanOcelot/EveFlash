@@ -25,7 +25,7 @@
       <Transition name="fade" mode="out-in">
         <div class="score" v-if="loading === false">
           <p>
-            You got {{ totalScore }} out of {{ cardsPlayed }} correct.
+            You have completed {{ totalScore }} out of {{ cardsPlayed }} <span> {{ shipData.length }} remaining. </span>
           </p>
         </div>
       </transition>
@@ -157,7 +157,14 @@
             })
           }
         }
-        this.previousShip = this.currentShipID;
+
+        // Remove the previous ship from the list of shipData.
+        console.log(this.shipData)
+        console.log(this.currentShipID)
+        console.log(this.shipData[this.currentShipID])
+        this.shipData.splice(this.currentShipID, 1)
+
+        this.previousShip = this.currentShipID
         this.initCard()
       },
 
@@ -224,6 +231,12 @@
     border-radius: 0 0 20px 20px;
     font-size: 14px;
     text-align: center;
+    span {
+      font-weight: 600;
+      margin-left: 10px;
+      padding-left: 10px;
+      border-left: 1px solid rgba(255,255,255,0.5);
+    }
   }
 
   // Transitions
