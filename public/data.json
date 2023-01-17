@@ -273,71 +273,39 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   {
-    "Name": "Amarr frig",
-    "Desc": "Commonly called a 'pod' the act of destroying this, is called 'podding'",
-    "Faction": "Amarr",
-    "Type": "Frigate",
+    "Name": "Velator",
+    "Desc": "These things are so cheap, I heard they give em out for free!",
+    "Faction": "Gallente Federation",
+    "Type": "Corvette",
     "TechLevel": "N/A",
-    "Images": ["/images/0/1.png","/images/0/2.png","/images/0/3.png","/images/0/4.png"]
+    "Images": ["/images/27/1.png"]
   },
+
+
+
+
+
   {
-    "Name": "min destroyer",
-    "Desc": "Commonly called a 'pod' the act of destroying this, is called 'podding'",
-    "Faction": "Minmatar",
-    "Type": "Destroyer",
+    "Name": "Ibis",
+    "Desc": "It can pick up EveRadio on it's long antenna.",
+    "Faction": "Caldari State",
+    "Type": "Corvette",
     "TechLevel": "N/A",
-    "Images": ["/images/0/1.png","/images/0/2.png","/images/0/3.png","/images/0/4.png"]
+    "Images": ["/images/28/1.png"]
   },
+
+
+
+
+
+
   {
-    "Name": "min destroyer 1",
-    "Desc": "Commonly called a 'pod' the act of destroying this, is called 'podding'",
-    "Faction": "Minmatar",
-    "Type": "Destroyer",
+    "Name": "Imprairor",
+    "Desc": "Can EASILY store one space slave.... in pieces.",
+    "Faction": "Amarr Empire",
+    "Type": "Corvette",
     "TechLevel": "N/A",
-    "Images": ["/images/0/1.png","/images/0/2.png","/images/0/3.png","/images/0/4.png"]
-  },
-  {
-    "Name": "min example 1",
-    "Desc": "Commonly called a 'pod' the act of destroying this, is called 'podding'",
-    "Faction": "Minmatar",
-    "Type": "example 1",
-    "TechLevel": "N/A",
-    "Images": ["/images/0/1.png","/images/0/2.png","/images/0/3.png","/images/0/4.png"]
-  },
-  {
-    "Name": "min example 2",
-    "Desc": "Commonly called a 'pod' the act of destroying this, is called 'podding'",
-    "Faction": "Example",
-    "Type": "example 2",
-    "TechLevel": "N/A",
-    "Images": ["/images/0/1.png","/images/0/2.png","/images/0/3.png","/images/0/4.png"]
-  },
-  {
-    "Name": "min example 2 2",
-    "Desc": "Commonly called a 'pod' the act of destroying this, is called 'podding'",
-    "Faction": "Example 2",
-    "Type": "example 3",
-    "TechLevel": "N/A",
-    "Images": ["/images/0/1.png","/images/0/2.png","/images/0/3.png","/images/0/4.png"]
+    "Images": ["/images/29/1.png"]
   }
 ]

@@ -110,7 +110,8 @@
 
 
         // End of console logs, for now.
-        let loopLength = 3 * this.difficulty;
+        // let loopLength = 3 * this.difficulty;
+        const loopLength = 3;
         this.answerData.Names = [];
         this.answerData.Types = [];
         this.answerData.Factions = [];

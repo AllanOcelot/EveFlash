@@ -11,7 +11,8 @@
 
     <!-- Guess the name, and ship type (frig, destroyer etc )-->
     <div class="info medium" v-if="difficulty === 2">
-
+      <p>Medium difficulty</p>
+      {{ ship}}
     </div>
 
     <!-- Guess ALL the info about this ship -->
