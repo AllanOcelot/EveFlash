@@ -3,17 +3,18 @@
     <TopNavigation />
     <v-main class="main-content">
       <Transition name="fade" mode="out-in">
-      <flash-card
-        v-if="loading === false"
-        :loading="loading"
-        :difficulty="difficulty"
-        :ship="selectedShip"
-        :options="answerData"
-        @finished="roundOver"
-      ></flash-card>
+        <flash-card
+          v-if="loading === false  && gameOver === false"
+          :loading="loading"
+          :difficulty="difficulty"
+          :ship="selectedShip"
+          :options="answerData"
+          @finished="roundOver"
+        ></flash-card>
       </transition>
-
-
+      <Transition name="fade" mode="out-in">
+        <EndGame v-if="gameOver === true" :correct="totalScore" :cardsPlayed="cardsPlayed" />
+      </transition>
       <div v-if="loading === true" class="pre-loader">
           <v-progress-circular
           :size="50"
@@ -21,7 +22,6 @@
           indeterminate
         ></v-progress-circular>
       </div>
-
       <Transition name="fade" mode="out-in">
         <div class="score" v-if="loading === false">
           <p>
@@ -42,6 +42,7 @@
   import TopNavigation from '/src/components/TopNavigation.vue'
   import BottomNavigation from '/src/components/BottomNavigation.vue'
   import FlashCard from '/src/components/FlashCard.vue'
+  import EndGame from '/src/components/EndGame.vue'
 
   export default {
     data() {
@@ -53,8 +54,14 @@
         loading: true,
         cardsPlayed: 0,
         totalScore: 0,
+        gameOver: false,
         shipData: [],
         selectedShip: null,
+        localData: {
+          Names: [],
+          Factions: [],
+          Types:[]
+        },
         answerData: {
           Names : [],
           Factions: [],
@@ -65,6 +72,7 @@
     components: {
       TopNavigation,
       FlashCard,
+      EndGame,
       BottomNavigation
     },
     methods: {
@@ -85,32 +93,34 @@
         }
         return shipID;
       },
-      generateRandomAnswers(){
-        let Factions = [];
-        let Types = [];
-        let Names = [];
 
+      shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+      },
+
+      generateLocalData(){
         for (var i = 0; i < this.shipData.length; i++){
           const ship = this.shipData[i];
-          if(!Names.includes(ship.Name)){
-            Names.push(ship.Name)
+          if(!this.localData.Names.includes(ship.Name)){
+            this.localData.Names.push(ship.Name)
           }
-          if(!Factions.includes(ship.Faction)){
-            Factions.push(ship.Faction)
+          if(!this.localData.Factions.includes(ship.Faction)){
+            this.localData.Factions.push(ship.Faction)
           }
-          if(!Types.includes(ship.Type)){
-            Types.push(ship.Type)
+          if(!this.localData.Types.includes(ship.Type)){
+            this.localData.Types.push(ship.Type)
           }
         }
-
         console.log('We have ' + this.shipData.length + ' Individual ships.');
-        console.log('We have ' + Names.length + " Ship names.");
-        console.log('We have ' + Types.length + " Ship types.");
-        console.log('We have ' + Factions.length + " Faction types.");
+        console.log('We have ' + this.localData.Names.length + " Ship names.");
+        console.log('We have ' + this.localData.Factions.length + " Ship types.");
+        console.log('We have ' + this.localData.Types.length + " Faction types.");
+      },
 
-
-        // End of console logs, for now.
-        // let loopLength = 3 * this.difficulty;
+      generateRandomAnswers(){
         const loopLength = 3;
         this.answerData.Names = [];
         this.answerData.Types = [];
@@ -118,21 +128,21 @@
 
         // Loop over the data to generate 'random' answers.
         while(this.answerData.Names.length < loopLength){
-          const newName = Names[this.randomIntFromInterval(0,Names.length)];
+          const newName = this.localData.Names[this.randomIntFromInterval(0,this.localData.Names.length)];
           if(newName != null && newName != '' && !this.answerData.Names.includes(newName)){
             this.answerData.Names.push(newName);
           }
         }
-        while(this.answerData.Types.length < loopLength){
-          const newType = Types[this.randomIntFromInterval(0,Types.length)];
-          if(newType != null && newType != '' && !this.answerData.Types.includes(newType)){
-            this.answerData.Types.push(newType);
-          }
-        }
         while(this.answerData.Factions.length < loopLength){
-          const newFaction = Factions[this.randomIntFromInterval(0,Factions.length)];
+          const newFaction = this.localData.Factions[this.randomIntFromInterval(0,this.localData.Factions.length)];
           if(newFaction != null && newFaction != '' && !this.answerData.Factions.includes(newFaction)){
             this.answerData.Factions.push(newFaction);
+          }
+        }
+        while(this.answerData.Types.length < loopLength){
+          const newType = this.localData.Types[this.randomIntFromInterval(0,this.localData.Types.length)];
+          if(newType != null && newType != '' && !this.answerData.Types.includes(newType)){
+            this.answerData.Types.push(newType);
           }
         }
       },
@@ -165,21 +175,28 @@
         this.shipData.splice(this.currentShipID, 1)
 
         this.previousShip = this.currentShipID
-        this.initCard()
+        if(this.shipData.length !== 0){
+          this.initCard()
+        }else{
+          this.gameOver = true
+        }
       },
 
 
       // Called to generate our card
       initCard(){
-        this.loading = true;
-        const shipID = this.randomIntFromInterval(0, this.shipData.length - 1);
-        this.currentShipID = shipID;
-        this.selectedShip = this.shipData[shipID];
-        this.generateRandomAnswers();
-        this.sanitiseAnswers();
+        this.loading = true
+        const shipID = this.randomIntFromInterval(0, this.shipData.length - 1)
+        this.currentShipID = shipID
+        this.selectedShip = this.shipData[shipID]
+        if(this.localData.Names.length === 0){
+         this.generateLocalData()
+        }
+        this.generateRandomAnswers()
+        this.sanitiseAnswers()
         setTimeout(() => {
-          this.loading = false;
-        }, 1000);
+          this.loading = false
+        }, 1000)
       }
     },
     mounted(){

@@ -13,6 +13,12 @@
     <div class="info medium" v-if="difficulty === 2">
       <p>Medium difficulty</p>
       {{ ship}}
+      <div class="question">
+        <div class="title">Name:</div>
+        <div class="answer">
+          <input type="text">
+        </div>
+      </div>
     </div>
 
     <!-- Guess ALL the info about this ship -->
@@ -218,7 +224,6 @@ export default {
 
 
 
-  // Transitons
   .bounce-enter-active {
     animation: bounce-in .5s;
   }

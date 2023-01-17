@@ -1,5 +1,4 @@
 <template>
-  allan
   <div class="modal-container" :class="{active : visible}">
     <div class="info-modal">
       <div class="image">
