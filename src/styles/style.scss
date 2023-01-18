@@ -1,14 +1,18 @@
-* {
-  display: none;
-}
-
-.main-content {
+.v-main .v-btn.blue {
   width: 100%;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  padding: 100px 0;
-  background: #0a0a13;
-  background-size: 20px 20px;
-  background-image: linear-gradient(90deg,hsla(0,0%,100%,.05) 1px,transparent 0),linear-gradient(180deg,hsla(0,0%,100%,.05) 1px,transparent 0);
+  margin: 10px 0;
+  border: 1px solid #4f717a;
+  background: linear-gradient(1deg, #06303a, #145062);
+  color: #fff;
+  height: 55px;
+  border-radius: 0px;
+  text-shadow: 0px 0px 0px #fff;
+  opacity: 0.7;
+  transition: all 0.3s;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+    text-shadow: 0px 0px 12px #fff;
+    box-shadow: 0 5px 10px rgb(0,0,0,0.5);
+  }
 }

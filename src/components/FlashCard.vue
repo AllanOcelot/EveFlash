@@ -40,7 +40,6 @@
           <div v-else>
             <h3>Wrong!</h3>
             <p>It was a {{ship.Name}}.</p>
-            <p class="desc">{{ship.Desc}}</p>
           </div>
           <v-btn class="continue blue" @click="finished()">
             Continue
@@ -121,26 +120,6 @@ export default {
       width: 50%;
       background-size: cover;
       background-position: center center;
-    }
-
-    .v-btn.blue {
-      width: 100%;
-      margin: 10px 0;
-      border: 1px solid #4f717a;
-      border-radius: 0;
-      background: linear-gradient(1deg, #06303a, #145062);
-      color: #fff;
-      height: 50px;
-      border-radius: 0px;
-      text-shadow: 0px 0px 0px #fff;
-      opacity: 0.7;
-      transition: all 0.3s;
-      cursor: pointer;
-      &:hover {
-        opacity: 1;
-        text-shadow: 0px 0px 12px #fff;
-        box-shadow: 0 5px 10px rgb(0,0,0,0.5);
-      }
     }
 
     .info {

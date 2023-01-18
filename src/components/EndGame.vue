@@ -6,7 +6,7 @@
 
       <hr>
 
-      <h4>You've got a score of {{score}}%</h4>
+      <h4>You've got a score of {{score.toFixed(2)}}%</h4>
 
       <div v-if="score < 29">
         <p>
@@ -28,6 +28,10 @@
           That's impressive, CCP should hire you! Like, now!
         </p>
       </div>
+
+      <div class="v-btn blue" @click="$emit('newGame')">
+        New Game?
+      </div>
     </div>
 
   </div>
@@ -37,27 +41,11 @@
 export default {
   data() {
     return {
-      score: 0,
     }
   },
-  props: ['correct', 'cardsPlayed'],
-  methods: {
-    calcScore(x,y){
-      return (100 * x) / y;
-    },
-    newGame() {
-      this.$emit('newGame')
-    }
-  },
-  watch: {
-    // whenever question changes, this function will run
-    cardsPlayed() {
-      this.score = this.calcScore(this.correct,this.cardsPlayed)
-    }
-  },
-  mounted () {
-
-  },
+  props: ['score'],
+  methods: {},
+  mounted () {},
 }
 </script>
 
@@ -95,6 +83,11 @@ export default {
     h4 {
       font-size: 1.5rem;
       margin-bottom: 0.5rem;
+    }
+
+    .v-btn {
+      margin-top: 50px;
+      margin-bottom: 0;
     }
   }
 </style>

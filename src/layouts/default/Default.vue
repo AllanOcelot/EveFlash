@@ -13,7 +13,11 @@
         ></flash-card>
       </transition>
       <Transition name="fade" mode="out-in">
-        <EndGame v-if="gameOver === true" :correct="totalScore" :cardsPlayed="cardsPlayed" />
+        <EndGame
+          v-if="gameOver === true"
+          :score="(100 * totalScore) / cardsPlayed"
+          @newGame="initGame"
+        />
       </transition>
       <div v-if="loading === true" class="pre-loader">
           <v-progress-circular
@@ -159,22 +163,22 @@
       roundOver(result){
         this.cardsPlayed++;
         if(result  === 'correct'){
-          this.totalScore++;
-          if(this.totalScore % 10 == 0){
+          this.totalScore++
+          this.streak++
+          if(this.streak % 10 == 0){
             jsConfetti.addConfetti({
               emojiSize: 100,
               confettiNumber: 400,
             })
           }
+        } else {
+          this.streak = 0
         }
 
         // Remove the previous ship from the list of shipData.
-        console.log(this.shipData)
-        console.log(this.currentShipID)
-        console.log(this.shipData[this.currentShipID])
         this.shipData.splice(this.currentShipID, 1)
-
         this.previousShip = this.currentShipID
+
         if(this.shipData.length !== 0){
           this.initCard()
         }else{
@@ -184,6 +188,30 @@
 
 
       // Called to generate our card
+      initGame(){
+        this.loading = true
+
+        // Reset local vars
+        this.previousShip =  0
+        this.currentShipID = 0
+        this.difficulty =  1
+        this.cardsPlayed = 0
+        this.totalScore = 0
+        this.streak = 0
+        this.gameOver = false
+        this.localData.Names = []
+        this.localData.Factions = []
+        this.localData.Types = []
+
+        axios.get('/data.json')
+        .then(res => {
+          this.shipData = res.data
+          this.initCard()
+          this.loading = false
+        }
+        ).catch(err => console.log(err))
+      },
+
       initCard(){
         this.loading = true
         const shipID = this.randomIntFromInterval(0, this.shipData.length - 1)
@@ -196,16 +224,11 @@
         this.sanitiseAnswers()
         setTimeout(() => {
           this.loading = false
-        }, 1000)
+        }, 700)
       }
     },
     mounted(){
-      axios.get('/data.json')
-      .then(res => {
-        this.shipData = res.data;
-        this.initCard();
-      }
-      ).catch(err => console.log(err))
+      this.initGame()
     }
   }
 </script>
