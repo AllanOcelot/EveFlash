@@ -6,7 +6,7 @@
     "Type": "N/A",
     "TechLevel": "N/A",
     "Tank": "N/A",
-    "Images": ["/images/0/1.png","/images/0/2.png","/images/0/3.png","/images/0/4.png"]
+    "Images": ["https://www.eveflash.com/images/0/1.png","https://www.eveflash.com/images/0/2.png","https://www.eveflash.com/images/0/3.png","https://www.eveflash.com/images/0/4.png"]
   },
   {
     "Name": "Reaper",
@@ -16,7 +16,7 @@
     "TechLevel": "1",
     "Tank": "Shield",
     "Turret": "Projectile",
-    "Images": ["/images/1/1.png","/images/1/2.png","/images/1/3.png","/images/1/4.png"]
+    "Images": ["https://www.eveflash.com/images/1/1.png","https://www.eveflash.com/images/1/2.png","https://www.eveflash.com/images/1/3.png","https://www.eveflash.com/images/1/4.png"]
   },
   {
     "Name": "Minmatar Shuttle",
@@ -26,7 +26,7 @@
     "TechLevel": "1",
     "Tank": "N/A",
     "Turret": "N/A",
-    "Images": ["/images/2/1.png","/images/2/2.png","/images/2/3.png","/images/2/4.png"]
+    "Images": ["https://www.eveflash.com/images/2/1.png","https://www.eveflash.com/images/2/2.png","https://www.eveflash.com/images/2/3.png","https://www.eveflash.com/images/2/4.png"]
   },
   {
     "Name": "Hoarder",
@@ -36,7 +36,7 @@
     "TechLevel": "1",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/3/1.png","/images/3/2.png","/images/3/3.png","/images/3/4.png"]
+    "Images": ["https://www.eveflash.com/images/3/1.png","https://www.eveflash.com/images/3/2.png","https://www.eveflash.com/images/3/3.png","https://www.eveflash.com/images/3/4.png"]
   },
   {
     "Name": "Mammoth",
@@ -46,7 +46,7 @@
     "TechLevel": "1",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/4/1.png","/images/4/2.png","/images/4/3.png","/images/4/4.png"]
+    "Images": ["https://www.eveflash.com/images/4/1.png","https://www.eveflash.com/images/4/2.png","https://www.eveflash.com/images/4/3.png","https://www.eveflash.com/images/4/4.png"]
   },
   {
     "Name": "Wreathe",
@@ -56,7 +56,7 @@
     "TechLevel": "1",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/5/1.png","/images/5/2.png","/images/5/3.png","/images/5/4.png"]
+    "Images": ["https://www.eveflash.com/images/5/1.png","https://www.eveflash.com/images/5/2.png","https://www.eveflash.com/images/5/3.png","https://www.eveflash.com/images/5/4.png"]
   },
   {
     "Name": "Prowler",
@@ -66,7 +66,7 @@
     "TechLevel": "2",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/6/1.png","/images/6/2.png","/images/6/3.png"]
+    "Images": ["https://www.eveflash.com/images/6/1.png","https://www.eveflash.com/images/6/2.png","https://www.eveflash.com/images/6/3.png"]
   },
   {
     "Name": "Mastodon",
@@ -76,7 +76,7 @@
     "TechLevel": "2",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/7/1.png","/images/7/2.png","/images/7/3.png"]
+    "Images": ["https://www.eveflash.com/images/7/1.png","https://www.eveflash.com/images/7/2.png","https://www.eveflash.com/images/7/3.png"]
   },
   {
     "Name": "Fenrir",
@@ -86,7 +86,7 @@
     "TechLevel": "1",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/8/1.png","/images/8/2.png","/images/8/3.png"]
+    "Images": ["https://www.eveflash.com/images/8/1.png","https://www.eveflash.com/images/8/2.png","https://www.eveflash.com/images/8/3.png"]
   },
   {
     "Name": "Nomad",
@@ -96,7 +96,7 @@
     "TechLevel": "2",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/9/1.png","/images/9/2.png","/images/9/3.png"]
+    "Images": ["https://www.eveflash.com/images/9/1.png","https://www.eveflash.com/images/9/2.png","https://www.eveflash.com/images/9/3.png"]
   },
   {
     "Name": "Slasher",
@@ -106,7 +106,7 @@
     "TechLevel": "1",
     "Tank": "Shields",
     "Turret": "Projectile",
-    "Images": ["/images/10/1.png","/images/10/2.png","/images/10/3.png"]
+    "Images": ["https://www.eveflash.com/images/10/1.png","https://www.eveflash.com/images/10/2.png","https://www.eveflash.com/images/10/3.png"]
   },
   {
     "Name": "Probe",
@@ -116,7 +116,7 @@
     "TechLevel": "1",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/11/1.png","/images/11/2.png","/images/11/3.png"]
+    "Images": ["https://www.eveflash.com/images/11/1.png","https://www.eveflash.com/images/11/2.png","https://www.eveflash.com/images/11/3.png"]
   },
   {
     "Name": "Rifter",
@@ -126,7 +126,7 @@
     "TechLevel": "1",
     "Tank": "Armor or Shields",
     "Turret": "Projectile",
-    "Images": ["/images/12/1.png","/images/12/2.png","/images/12/3.png"]
+    "Images": ["https://www.eveflash.com/images/12/1.png","https://www.eveflash.com/images/12/2.png","https://www.eveflash.com/images/12/3.png"]
   },
   {
     "Name": "Breacher",
@@ -136,7 +136,7 @@
     "TechLevel": "1",
     "Tank": "Shields",
     "Turret": "Missle",
-    "Images": ["/images/13/1.png","/images/13/2.png"]
+    "Images": ["https://www.eveflash.com/images/13/1.png","https://www.eveflash.com/images/13/2.png"]
   },
   {
     "Name": "Burst",
@@ -146,7 +146,7 @@
     "TechLevel": "1",
     "Tank": "Shields",
     "Turret": "N/A",
-    "Images": ["/images/14/1.png","/images/14/2.png"]
+    "Images": ["https://www.eveflash.com/images/14/1.png","https://www.eveflash.com/images/14/2.png"]
   },
   {
     "Name": "Vigil",
@@ -156,7 +156,7 @@
     "TechLevel": "1",
     "Tank": "Shields",
     "Turret": "N/A",
-    "Images": ["/images/15/1.png","/images/15/2.png"]
+    "Images": ["https://www.eveflash.com/images/15/1.png","https://www.eveflash.com/images/15/2.png"]
   },
   {
     "Name": "Vigil Fleet Issue",
@@ -166,7 +166,7 @@
     "TechLevel": "Faction",
     "Tank": "Armor or Shields",
     "Turret": "Missile",
-    "Images": ["/images/16/1.png","/images/16/2.png"]
+    "Images": ["https://www.eveflash.com/images/16/1.png","https://www.eveflash.com/images/16/2.png"]
   },
   {
     "Name": "Republic Fleet Firetail",
@@ -176,7 +176,7 @@
     "TechLevel": "Faction",
     "Tank": "Armor or Shields",
     "Turret": "Projectile",
-    "Images": ["/images/17/1.png","/images/17/2.png"]
+    "Images": ["https://www.eveflash.com/images/17/1.png","https://www.eveflash.com/images/17/2.png"]
   },
   {
     "Name": "Probe Fleet Issue",
@@ -186,7 +186,7 @@
     "TechLevel": "Faction",
     "Tank": "Armor or Shields",
     "Turret": "Missile",
-    "Images": ["/images/18/1.png","/images/18/2.png"]
+    "Images": ["https://www.eveflash.com/images/18/1.png","https://www.eveflash.com/images/18/2.png"]
   },
   {
     "Name": "Claw",
@@ -196,7 +196,7 @@
     "TechLevel": "2",
     "Tank": "Armor",
     "Turret": "Projectile",
-    "Images": ["/images/19/1.png","/images/19/2.png"]
+    "Images": ["https://www.eveflash.com/images/19/1.png","https://www.eveflash.com/images/19/2.png"]
   },
   {
     "Name": "Stiletto",
@@ -206,7 +206,7 @@
     "TechLevel": "2",
     "Tank": "Armor or Shields",
     "Turret": "Projectile",
-    "Images": ["/images/20/1.png","/images/20/2.png"]
+    "Images": ["https://www.eveflash.com/images/20/1.png","https://www.eveflash.com/images/20/2.png"]
   },
   {
     "Name": "Jaguar",
@@ -216,7 +216,7 @@
     "TechLevel": "2",
     "Tank": "Shields",
     "Turret": "Missile",
-    "Images": ["/images/21/1.png","/images/21/2.png"]
+    "Images": ["https://www.eveflash.com/images/21/1.png","https://www.eveflash.com/images/21/2.png"]
   },
   {
     "Name": "Wolf",
@@ -226,7 +226,7 @@
     "TechLevel": "2",
     "Tank": "Armor",
     "Turret": "Projectile",
-    "Images": ["/images/22/1.png","/images/22/2.png"]
+    "Images": ["https://www.eveflash.com/images/22/1.png","https://www.eveflash.com/images/22/2.png"]
   },
   {
     "Name": "Cheetah",
@@ -236,7 +236,7 @@
     "TechLevel": "2",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/23/1.png","/images/23/2.png"]
+    "Images": ["https://www.eveflash.com/images/23/1.png","https://www.eveflash.com/images/23/2.png"]
   },
   {
     "Name": "Hound",
@@ -246,7 +246,7 @@
     "TechLevel": "2",
     "Tank": "Armor or Shields",
     "Turret": "Missile",
-    "Images": ["/images/24/1.png","/images/24/2.png"]
+    "Images": ["https://www.eveflash.com/images/24/1.png","https://www.eveflash.com/images/24/2.png"]
   },
   {
     "Name": "Hyena",
@@ -256,7 +256,7 @@
     "TechLevel": "2",
     "Tank": "Armor or Shields",
     "Turret": "N/A",
-    "Images": ["/images/25/1.png","/images/25/2.png"]
+    "Images": ["https://www.eveflash.com/images/25/1.png","https://www.eveflash.com/images/25/2.png"]
   },
   {
     "Name": "Scalpel",
@@ -266,7 +266,7 @@
     "TechLevel": "2",
     "Tank": "Shields",
     "Turret": "N/A",
-    "Images": ["/images/26/1.png","/images/26/2.png"]
+    "Images": ["https://www.eveflash.com/images/26/1.png","https://www.eveflash.com/images/26/2.png"]
   },
 
 
@@ -279,7 +279,7 @@
     "Faction": "Gallente Federation",
     "Type": "Corvette",
     "TechLevel": "N/A",
-    "Images": ["/images/27/1.png"]
+    "Images": ["https://www.eveflash.com/images/27/1.png"]
   },
 
 
@@ -292,7 +292,7 @@
     "Faction": "Caldari State",
     "Type": "Corvette",
     "TechLevel": "N/A",
-    "Images": ["/images/28/1.png"]
+    "Images": ["https://www.eveflash.com/images/28/1.png"]
   },
 
 
@@ -306,6 +306,16 @@
     "Faction": "Amarr Empire",
     "Type": "Corvette",
     "TechLevel": "N/A",
-    "Images": ["/images/29/1.png"]
+    "Images": ["https://www.eveflash.com/images/29/1.png"]
+  },
+
+
+  {
+    "Name": "Astero",
+    "Desc": "Allan Antollare's favorite EVE online ship.",
+    "Faction": "Sisters Of Eve",
+    "Type": "Frigate",
+    "TechLevel": "Faction",
+    "Images": ["https://www.eveflash.com/images/30/1.png"]
   }
 ]

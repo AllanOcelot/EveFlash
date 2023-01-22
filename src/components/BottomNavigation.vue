@@ -1,6 +1,6 @@
 <template>
   <v-footer class="footer">
-    EveShips is just a fun little project by Allan Antollare, something to do whilst docked up.
+    EveShips is created by Allan Antollare. EVE Online and the EVE logo are the registered trademarks of CCP.
   </v-footer>
 </template>
 
