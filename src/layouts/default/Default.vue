@@ -125,7 +125,7 @@
       },
 
       generateRandomAnswers(){
-        const loopLength = 3;
+        const loopLength = 4;
         this.answerData.Names = [];
         this.answerData.Types = [];
         this.answerData.Factions = [];
