@@ -38,7 +38,7 @@
   </v-app>
 </template>
 
-<script>
+<script lang="ts">
   import axios from 'axios'
   import JSConfetti from 'js-confetti'
   const jsConfetti = new JSConfetti()
@@ -61,6 +61,7 @@
         gameOver: false,
         shipData: [],
         selectedShip: null,
+        streak: 0,
         localData: {
           Names: [],
           Factions: [],
@@ -80,25 +81,27 @@
       BottomNavigation
     },
     methods: {
-      randomIntFromInterval(min, max) {
+      randomIntFromInterval(min : number, max : number) {
         return Math.floor(Math.random() * (max - min + 1) + min)
       },
+
       selectRandomShip(){
         const dataLength = this.shipData.length;
         const shipID = Math.floor(Math.random() * (dataLength - 0) + 0);
         this.currentShipID = shipID;
+
         // dont show the same ship twice, people hate that
         if(this.previousShip === shipID){
           if(shipID === dataLength){
-            this.shipID = shipID - 1;
+            this.currentShipID = shipID - 1;
           }else{
-            this.shipID = shipID + 1;
+            this.currentShipID = shipID + 1;
           }
         }
         return shipID;
       },
 
-      shuffleArray(array) {
+      shuffleArray(array : number[]) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
@@ -160,7 +163,7 @@
         }
       },
 
-      roundOver(result){
+      roundOver(result : string){
         this.cardsPlayed++;
         if(result  === 'correct'){
           this.totalScore++
