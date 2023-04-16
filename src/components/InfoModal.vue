@@ -12,6 +12,7 @@
         <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up.</p>
         <p>If you like it, consider donating some ISK or not podding me the next time you see me. </p>
         <p><strong>Fly Safe</strong></p>
+        <p>Last Updated: 16th April 23</p>
         <hr>
         <h3>People I like</h3>
         <p>If you like this, why not check out...</p>

@@ -33,202 +33,190 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+  import { ref, onMounted } from 'vue'
   import axios from 'axios'
   import JSConfetti from 'js-confetti'
-  const jsConfetti = new JSConfetti()
-
   import TopNavigation from '/src/components/TopNavigation.vue'
   import BottomNavigation from '/src/components/BottomNavigation.vue'
   import FlashCard from '/src/components/FlashCard.vue'
   import EndGame from '/src/components/EndGame.vue'
 
-  export default {
-    data() {
-      return {
-        previousShip: 0,
-        currentShipID: 0,
-        // Difficulty, 1 = easy, 2 = med, 3 = hard
-        difficulty: 1,
-        loading: true,
-        cardsPlayed: 0,
-        totalScore: 0,
-        gameOver: false,
-        shipData: [],
-        selectedShip: null,
-        streak: 0,
-        localData: {
-          Names: [],
-          Factions: [],
-          Types:[]
-        },
-        answerData: {
-          Names : [],
-          Factions: [],
-          Types: [],
-        }
+  const jsConfetti = new JSConfetti()
+
+
+
+  interface Ship  {
+      Name: string,
+      Desc: string,
+      Faction: string,
+      Type: string,
+      Tank: string,
+      Turret: string,
+      TechLevel: string,
+      Images: string[]
+  }
+  interface localDataIT {
+    Names: string[],
+    Factions: string[],
+    Types: string[]
+  }
+  interface answerDataIT {
+    Names: string[],
+    Factions: string[],
+    Types: string[]
+  }
+
+  let currentShipID = 0
+
+  // Difficulty, 1 = easy, 2 = med, 3 = hard
+  let difficulty =  1
+  let loading =  ref(true)
+  let cardsPlayed = ref(0)
+  let totalScore = ref(0)
+  let gameOver = ref(false)
+  let streak = ref(0)
+
+
+  let shipData : Ship[] = []
+  let selectedShip : Ship;
+  let localData : localDataIT ={
+    Names: [],
+    Factions: [],
+    Types:[]
+  }
+  let answerData : answerDataIT = {
+    Names : [],
+    Factions: [],
+    Types: [],
+  }
+
+
+
+  // Start functions
+  function randomIntFromInterval(min : number, max : number) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+
+  function generateLocalData(){
+    for (var i = 0; i < shipData.length; i++){
+      const ship : Ship = shipData[i];
+      if(!localData.Names.includes(ship.Name)){
+        localData.Names.push(ship.Name)
       }
-    },
-    components: {
-      TopNavigation,
-      FlashCard,
-      EndGame,
-      BottomNavigation
-    },
-    methods: {
-      randomIntFromInterval(min : number, max : number) {
-        return Math.floor(Math.random() * (max - min + 1) + min)
-      },
-
-      selectRandomShip(){
-        const dataLength = this.shipData.length;
-        const shipID = Math.floor(Math.random() * (dataLength - 0) + 0);
-        this.currentShipID = shipID;
-
-        // dont show the same ship twice, people hate that
-        if(this.previousShip === shipID){
-          if(shipID === dataLength){
-            this.currentShipID = shipID - 1;
-          }else{
-            this.currentShipID = shipID + 1;
-          }
-        }
-        return shipID;
-      },
-
-      shuffleArray(array : number[]) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-      },
-
-      generateLocalData(){
-        for (var i = 0; i < this.shipData.length; i++){
-          const ship = this.shipData[i];
-          if(!this.localData.Names.includes(ship.Name)){
-            this.localData.Names.push(ship.Name)
-          }
-          if(!this.localData.Factions.includes(ship.Faction)){
-            this.localData.Factions.push(ship.Faction)
-          }
-          if(!this.localData.Types.includes(ship.Type)){
-            this.localData.Types.push(ship.Type)
-          }
-        }
-        console.log('We have ' + this.shipData.length + ' Individual ships.');
-        console.log('We have ' + this.localData.Names.length + " Ship names.");
-        console.log('We have ' + this.localData.Factions.length + " Ship types.");
-        console.log('We have ' + this.localData.Types.length + " Faction types.");
-      },
-
-      generateRandomAnswers(){
-        const loopLength = 4;
-        this.answerData.Names = [];
-        this.answerData.Types = [];
-        this.answerData.Factions = [];
-
-        // Loop over the data to generate 'random' answers.
-        while(this.answerData.Names.length < loopLength){
-          const newName = this.localData.Names[this.randomIntFromInterval(0,this.localData.Names.length)];
-          if(newName != null && newName != '' && !this.answerData.Names.includes(newName)){
-            this.answerData.Names.push(newName);
-          }
-        }
-        while(this.answerData.Factions.length < loopLength){
-          const newFaction = this.localData.Factions[this.randomIntFromInterval(0,this.localData.Factions.length)];
-          if(newFaction != null && newFaction != '' && !this.answerData.Factions.includes(newFaction)){
-            this.answerData.Factions.push(newFaction);
-          }
-        }
-        while(this.answerData.Types.length < loopLength){
-          const newType = this.localData.Types[this.randomIntFromInterval(0,this.localData.Types.length)];
-          if(newType != null && newType != '' && !this.answerData.Types.includes(newType)){
-            this.answerData.Types.push(newType);
-          }
-        }
-      },
-
-      sanitiseAnswers(){
-        // Sanitise this data and ensure the 'correct' data exists in each category
-        const ship = this.selectedShip;
-        if(!this.answerData.Names.includes(ship.Name)){
-          this.answerData.Names.splice(this.randomIntFromInterval(0, this.answerData.Names.length - 1), 1);
-          this.answerData.Names.splice(this.randomIntFromInterval(0,this.answerData.Names.length - 1), 0, ship.Name);
-        }
-      },
-
-      roundOver(result : string){
-        this.cardsPlayed++;
-        if(result  === 'correct'){
-          this.totalScore++
-          this.streak++
-          if(this.streak % 10 == 0){
-            jsConfetti.addConfetti({
-              emojiSize: 100,
-              confettiNumber: 400,
-            })
-          }
-        } else {
-          this.streak = 0
-        }
-
-        // Remove the previous ship from the list of shipData.
-        this.shipData.splice(this.currentShipID, 1)
-        this.previousShip = this.currentShipID
-
-        if(this.shipData.length !== 0){
-          this.initCard()
-        }else{
-          this.gameOver = true
-        }
-      },
-
-
-      // Called to generate our card
-      initGame(){
-        this.loading = true
-
-        // Reset local vars
-        this.previousShip =  0
-        this.currentShipID = 0
-        this.difficulty =  1
-        this.cardsPlayed = 0
-        this.totalScore = 0
-        this.streak = 0
-        this.gameOver = false
-        this.localData.Names = []
-        this.localData.Factions = []
-        this.localData.Types = []
-
-        axios.get('/data.json')
-        .then(res => {
-          this.shipData = res.data
-          this.initCard()
-          this.loading = false
-        }
-        ).catch(err => console.log(err))
-      },
-
-      initCard(){
-        this.loading = true
-        const shipID = this.randomIntFromInterval(0, this.shipData.length - 1)
-        this.currentShipID = shipID
-        this.selectedShip = this.shipData[shipID]
-        if(this.localData.Names.length === 0){
-         this.generateLocalData()
-        }
-        this.generateRandomAnswers()
-        this.sanitiseAnswers()
-        setTimeout(() => {
-          this.loading = false
-        }, 700)
+      if(!localData.Factions.includes(ship.Faction)){
+        localData.Factions.push(ship.Faction)
       }
-    },
-    mounted(){
-      this.initGame()
+      if(!localData.Types.includes(ship.Type)){
+        localData.Types.push(ship.Type)
+      }
     }
   }
+
+  function generateRandomAnswers(){
+    const loopLength = 4;
+    answerData.Names = [];
+    answerData.Types = [];
+    answerData.Factions = [];
+
+    // Loop over the data to generate 'random' answers.
+    while(answerData.Names.length < loopLength){
+      const newName = localData.Names[randomIntFromInterval(0,localData.Names.length)];
+      if(newName != null && newName != '' && !answerData.Names.includes(newName)){
+        answerData.Names.push(newName);
+      }
+    }
+    while(answerData.Factions.length < loopLength){
+      const newFaction = localData.Factions[randomIntFromInterval(0,localData.Factions.length)];
+      if(newFaction != null && newFaction != '' && !answerData.Factions.includes(newFaction)){
+        answerData.Factions.push(newFaction);
+      }
+    }
+    while(answerData.Types.length < loopLength){
+      const newType = localData.Types[randomIntFromInterval(0,localData.Types.length)];
+      if(newType != null && newType != '' && !answerData.Types.includes(newType)){
+        answerData.Types.push(newType);
+      }
+    }
+  }
+
+  function sanitiseAnswers(){
+    const ship = selectedShip;
+    if(!answerData.Names.includes(ship.Name)){
+      answerData.Names.splice(randomIntFromInterval(0,answerData.Names.length - 1), 1);
+      answerData.Names.splice(randomIntFromInterval(0,answerData.Names.length - 1), 0, ship.Name);
+    }
+  }
+
+
+  // Called to generate our card
+  function initGame(){
+    loading.value = true
+    // Reset local vars
+    currentShipID = 0
+    difficulty =  1
+    cardsPlayed.value = 0
+    totalScore.value = 0
+    streak.value = 0
+    gameOver.value = false
+
+    localData.Names = []
+    localData.Factions = []
+    localData.Types = []
+
+    axios.get('/data.json')
+    .then(res => {
+      shipData = res.data
+      initCard()
+      loading.value = false
+    }
+    ).catch(err => console.log(err))
+  }
+
+    function initCard(){
+      loading.value = true
+      const shipID = randomIntFromInterval(0,shipData.length - 1)
+      currentShipID = shipID
+      selectedShip = shipData[shipID]
+      if(localData.Names.length === 0){
+        generateLocalData()
+      }
+      generateRandomAnswers()
+      sanitiseAnswers()
+      setTimeout(() => {
+        loading.value = false
+      }, 700)
+    }
+
+    function roundOver(result : string){
+      cardsPlayed.value++;
+      if(result  === 'correct'){
+        totalScore.value++
+        streak.value++
+        if(streak.value % 10 == 0){
+          jsConfetti.addConfetti({
+            emojiSize: 100,
+            confettiNumber: 400,
+          })
+        }
+      } else {
+        streak.value = 0
+      }
+
+      // Remove the previous ship from the list of shipData.
+      shipData.splice(currentShipID, 1)
+
+      if(shipData.length !== 0){
+        initCard()
+      }else{
+        gameOver.value = true
+      }
+    }
+
+
+    onMounted(() => {
+      initGame()
+    })
 </script>
 
 <style lang="scss" scoped>
