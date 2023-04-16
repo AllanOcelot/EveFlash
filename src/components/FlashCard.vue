@@ -105,7 +105,8 @@ export default {
   .flashcard {
     background: #fff;
     margin: auto;
-    width: 1000px;
+    width: 90%;
+    max-width: 1000px;
     margin-bottom: 0;
     min-height: 400px;
     display: flex;
@@ -189,6 +190,25 @@ export default {
         margin-bottom: 10px;
         opacity: 1;
         width: 300px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px){
+    .flashcard {
+      flex-direction: column;
+
+      .image {
+        width: 100%;
+        min-height: 200px;
+      }
+
+      .info {
+        width: 100%;
+        .v-btn {
+          height: 34px;
+          margin: 0 0 10px 0;
+        }
       }
     }
   }

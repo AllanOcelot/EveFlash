@@ -50,6 +50,9 @@
 </script>
 
 <style lang="scss" scoped>
+  .main-header {
+    z-index: 998 !important;
+  }
   .logo {
     font-size: 25px;
     font-weight: 700;
@@ -79,4 +82,15 @@
     color: #fff;
     border-bottom: 1px solid #f1f1f173;
   }
+
+
+  @media screen and (max-width: 800px){
+    .more-info {
+      font-size: 10px;
+    }
+    .text-left {
+      max-width: 128px;
+    }
+  }
+
 </style>

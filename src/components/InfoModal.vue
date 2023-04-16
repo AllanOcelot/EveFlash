@@ -192,4 +192,27 @@
       }
     }
   }
+
+  @media screen and (max-width: 800px){
+    .modal-container{
+      .close {
+        top: -25px !important;
+      }
+      .info-modal {
+        max-width: 90%;
+        min-height: 0 !important;
+        flex-direction: column;
+
+        .image {
+          display: none;
+        }
+        .content {
+          p {
+            font-size: 14px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
 </style>

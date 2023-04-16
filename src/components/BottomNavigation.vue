@@ -27,4 +27,12 @@
   max-height: 50px;
   background: rgba(0,0,0,0.6);
 }
+
+@media screen and (max-width: 800px){
+  .footer {
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+  }
+}
 </style>

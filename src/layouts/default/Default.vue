@@ -47,6 +47,7 @@
   import BottomNavigation from '/src/components/BottomNavigation.vue'
   import FlashCard from '/src/components/FlashCard.vue'
   import EndGame from '/src/components/EndGame.vue'
+import { objectToString } from '@vue/shared'
 
   export default {
     data() {
@@ -266,7 +267,8 @@
 
   .score {
     margin: auto;
-    width: 1000px;
+    width: 90%;
+    max-width: 1000px;
     margin-top: 0;
     padding: 12px 30px;
     background: rgba(0,0,0,0.25);
@@ -288,5 +290,11 @@
   }
   .fade-enter,.fade-leave-active {
     opacity: 0
+  }
+
+  @media screen and (max-width: 800px){
+    .score {
+      font-size: 12px;
+    }
   }
 </style>
