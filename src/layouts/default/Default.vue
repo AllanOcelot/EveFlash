@@ -2,7 +2,6 @@
   <v-app class="main-app">
     <TopNavigation />
     <v-main class="main-content">
-      <Transition name="fade" mode="out-in">
         <flash-card
           v-if="loading === false  && gameOver === false"
           :loading="loading"
@@ -11,28 +10,24 @@
           :options="answerData"
           @finished="roundOver"
         ></flash-card>
-      </transition>
-      <Transition name="fade" mode="out-in">
         <EndGame
           v-if="gameOver === true"
           :score="(100 * totalScore) / cardsPlayed"
           @newGame="initGame"
         />
-      </transition>
-      <div v-if="loading === true" class="pre-loader">
-          <v-progress-circular
-          :size="50"
-          color="primary"
-          indeterminate
-        ></v-progress-circular>
-      </div>
-      <Transition name="fade" mode="out-in">
+        <div v-if="loading === true" class="pre-loader">
+            <v-progress-circular
+            :size="50"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
+        </div>
+
         <div class="score" v-if="loading === false">
           <p>
             You have completed {{ totalScore }} out of {{ cardsPlayed }} <span> {{ shipData.length }} remaining. </span>
           </p>
         </div>
-      </transition>
     </v-main>
     <BottomNavigation />
   </v-app>
@@ -47,7 +42,6 @@
   import BottomNavigation from '/src/components/BottomNavigation.vue'
   import FlashCard from '/src/components/FlashCard.vue'
   import EndGame from '/src/components/EndGame.vue'
-import { objectToString } from '@vue/shared'
 
   export default {
     data() {
