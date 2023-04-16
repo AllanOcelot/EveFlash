@@ -1,50 +1,42 @@
 <template>
-  <v-app class="main-app">
-    <TopNavigation />
-    <v-main class="main-content">
-        <flash-card
-          v-if="loading === false  && gameOver === false"
-          :loading="loading"
-          :difficulty="difficulty"
-          :ship="selectedShip"
-          :options="answerData"
-          @finished="roundOver"
-        ></flash-card>
-        <EndGame
-          v-if="gameOver === true"
-          :score="(100 * totalScore) / cardsPlayed"
-          @newGame="initGame"
-        />
-        <div v-if="loading === true" class="pre-loader">
-            <v-progress-circular
-            :size="50"
-            color="primary"
-            indeterminate
-          ></v-progress-circular>
-        </div>
+  <v-main class="main-content">
+      <flash-card
+        v-if="loading === false  && gameOver === false"
+        :loading="loading"
+        :difficulty="difficulty"
+        :ship="selectedShip"
+        :options="answerData"
+        @finished="roundOver"
+      ></flash-card>
+      <EndGame
+        v-if="gameOver === true"
+        :score="(100 * totalScore) / cardsPlayed"
+        @newGame="initGame"
+      />
+      <div v-if="loading === true" class="pre-loader">
+          <v-progress-circular
+          :size="50"
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </div>
 
-        <div class="score" v-if="loading === false">
-          <p>
-            You have completed {{ totalScore }} out of {{ cardsPlayed }} <span> {{ shipData.length }} remaining. </span>
-          </p>
-        </div>
-    </v-main>
-    <BottomNavigation />
-  </v-app>
+      <div class="score" v-if="loading === false">
+        <p>
+          You have completed {{ totalScore }} out of {{ cardsPlayed }} <span> {{ shipData.length }} remaining. </span>
+        </p>
+      </div>
+  </v-main>
 </template>
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import axios from 'axios'
   import JSConfetti from 'js-confetti'
-  import TopNavigation from '/src/components/TopNavigation.vue'
-  import BottomNavigation from '/src/components/BottomNavigation.vue'
   import FlashCard from '/src/components/FlashCard.vue'
   import EndGame from '/src/components/EndGame.vue'
 
   const jsConfetti = new JSConfetti()
-
-
 
   interface Ship  {
       Name: string,
