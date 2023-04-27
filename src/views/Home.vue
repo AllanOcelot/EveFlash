@@ -3,8 +3,8 @@
     <v-container class="options-container">
       <div class="options-configure">
         <div class="top">
-          <p>EveFlash is designed to test your Eve ship knowledge via Flash Card training.</p>
-          <p>Learn about faction ships, their 'typical' fittings and roles - and how to counter them.</p>
+          <h2>EVEFLASH : Learn The Ships Of Eve Online</h2>
+          <p>Select factions and configure options below to begin training.</p>
         </div>
         <div class="middle">
           <div class="factions">
@@ -16,7 +16,7 @@
                   >
                 <img :src="'/icons/' + empire.Image" :alt="empire.Name">
                 <p class="info" :class="empire.Enabled ? '' : 'unavailable'">
-                  <span v-if="empire.Enabled">
+                  <span v-if="empire.Enabled" @click="store.addFaction(empire.Name)">
                     Select {{ empire.Name }}
                   </span>
                   <span v-else>
@@ -41,6 +41,10 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
+
+  import { useGameStateStore } from '@/stores/gameState'
+  const store = useGameStateStore()
+
 
   let rounds = ref(0);
   let difficulty = ref('Easy');

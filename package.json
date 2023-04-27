@@ -13,6 +13,7 @@
     "axios": "^1.2.2",
     "core-js": "^3.8.3",
     "js-confetti": "^0.11.0",
+    "pinia": "^2.0.35",
     "roboto-fontface": "*",
     "vue": "^3.2.13",
     "vue-router": "^4.0.0",
