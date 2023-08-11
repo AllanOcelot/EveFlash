@@ -4,14 +4,13 @@
       <div class="image">
         <div class="info">
           <p>Allan Antollare</p>
-          <p>Smart | Sexy |  Poor</p>
+          <p class="mb-0">Smart | Sexy |  Poor</p>
         </div>
       </div>
       <div class="content">
         <h3>About</h3>
         <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up.</p>
         <p>If you like it, consider donating some ISK or not podding me the next time you see me. </p>
-        <h3>Fly Safe</h3>
         <hr>
         <p class="mb-0"><small>Last Updated: 11th August 23</small></p>
         <hr>
@@ -101,6 +100,7 @@
       box-sizing: border-box;
 
       p {
+        font-size: 14px;
         margin-bottom: 20px;
       }
 
@@ -123,7 +123,7 @@
 
       .image {
         flex: 1 auto;
-        width: 45%;
+        width: 220px;
         display: block;
         background-color: #666;
         position: relative;
@@ -140,6 +140,9 @@
           border-top: 1px solid #f1f1f1;
           background: rgba(0,0,0,0.5);
           text-align: center;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
           p {
             font-size: 14px;
             color: rgb(102, 161, 189);
