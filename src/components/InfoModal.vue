@@ -11,8 +11,9 @@
         <h3>About</h3>
         <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up.</p>
         <p>If you like it, consider donating some ISK or not podding me the next time you see me. </p>
-        <p><strong>Fly Safe</strong></p>
-        <p>Last Updated: 16th April 23</p>
+        <h3>Fly Safe</h3>
+        <hr>
+        <p class="mb-0"><small>Last Updated: 11th August 23</small></p>
         <hr>
         <h3>People I like</h3>
         <p>If you like this, why not check out...</p>
@@ -44,6 +45,12 @@
     data() {
       return {
         coolPeople: [
+          { type: 'twitch',
+            desc: 'Magical Geek',
+            link: 'https://www.twitch.tv/magicalgeek'},
+          { type: 'twitch',
+            desc: 'Rushlock',
+            link: 'https://www.twitch.tv/rushlock'},
           { type: 'twitch',
             desc: 'Vinnie Dooshay',
             link: 'https://www.twitch.tv/vinnegar_dooshay'},
@@ -77,7 +84,6 @@
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s;
-
 
     &.active {
       z-index: 999;
@@ -140,6 +146,7 @@
             &:first-of-type {
               font-size: 20px;
               color: rgb(182, 173, 93);
+              margin-bottom: 0;
             }
           }
         }

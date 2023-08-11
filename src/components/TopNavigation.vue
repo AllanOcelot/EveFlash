@@ -72,7 +72,9 @@
   }
 
   .more-info {
-    margin-right: 30px;
+    margin-right: 20px;
+    font-size: 12px;
+    padding: 0 10px;
     background: rgba(255,255,255,0.2);
   }
 
