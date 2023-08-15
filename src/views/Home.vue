@@ -3,11 +3,10 @@
     <v-container class="options-container">
       <div class="options-configure">
         <div class="top">
-          <h2>EVEFLASH : Learn The Ships Of Eve Online</h2>
-          <p>Select factions and configure options below to begin training.</p>
+          <p>What factions would you like to use</p>
         </div>
-        <div class="middle">
-          <div class="factions">
+        <div class="choice-selection middle">
+          <div class="choice-block factions">
             <div class="empires">
               <div class="block"
                   v-for="(empire, index) in EmpiresData" :key="index"
@@ -24,7 +23,15 @@
           </div>
         </div>
         <div class="bottom">
-          <p>I would like to play for {{rounds}} on {{difficulty}} difficulty.</p>
+          <v-btn class="blue" @click="changeStepSelection(false)" v-if="selectionStep >= 1">
+            Prev
+          </v-btn>
+          <v-btn class="blue" @click="changeStepSelection(true)">
+            Next
+          </v-btn>
+          <!--           <p>I would like to play for {{rounds}} on {{difficulty}} difficulty.</p>
+            -->
+
         </div>
       </div>
     </v-container>
@@ -39,6 +46,7 @@
   const store = useGameStateStore()
 
 
+  let selectionStep = ref(0);
   let rounds = ref(0);
   let difficulty = ref('Easy');
 
@@ -66,7 +74,7 @@
     {
       Name: "Amarr Empire",
       Image: "empire_1.png",
-      Enabled: false,
+      Enabled: true,
       Color1: '#5c3e11',
       Color2: '#f9f5ba',
       Selected: false,
@@ -74,7 +82,7 @@
     {
       Name: "Caldari State",
       Image: "empire_2.png",
-      Enabled: false,
+      Enabled: true,
       Color1: '#0d0e12',
       Color2: '#adb4bb',
       Selected: false,
@@ -82,7 +90,7 @@
     {
       Name: "Gallente Federation",
       Image: "empire_3.png",
-      Enabled: false,
+      Enabled: true,
       Color1: '#191c1a',
       Color2: '#bfdddd',
       Selected: false,
@@ -97,6 +105,7 @@
     },
   ])
 
+  // toggle a faction to 'selected factions' array.
   function selectFaction(index : number){
     if(EmpiresData.value[index].Selected === true ){
       EmpiresData.value[index].Selected = false
@@ -107,8 +116,16 @@
     }
   }
 
-  onMounted(() => {
+  function changeStepSelection(direction : boolean){
+    if(direction === true){
+      selectionStep.value++
+    }else{
+      selectionStep.value--
+    }
+  }
 
+  onMounted(() => {
+    // unsure if we should clear store on fresh mount? Could avoid issues re:mid game refresh etc etc
   })
 </script>
 
@@ -131,20 +148,33 @@
       color: #fff;
     }
 
+
+    .choice-selection {
+
+    }
+
+
+
     .middle {
       display: flex;
       flex: 1;
       .factions {
+        display: flex;
+        flex: 1 auto;
         width: 100%;
+        align-items: center;
         .empires {
           display: flex;
           flex-direction: row;
+          height: 70%;
+          width: 100%;
+          justify-content: center;
           .block {
-            margin: 0 5px;
-            height: 200px;
-            border-radius: 50px 0;
+            margin: auto 5px;
+            height: 100%;
+            border-radius: 33px;
             overflow: hidden;
-            border: 1px solid #fff;
+            border: 1px solid rgba(255,255,255, 0.05);
             display: flex;
             flex: 1;
             cursor: pointer;
@@ -190,6 +220,21 @@
               opacity: 1;
             }
           }
+        }
+      }
+    }
+    .bottom {
+      display: flex;
+      .v-btn {
+        margin: 0 auto;
+        max-width: 200px;
+        &:first-of-type {
+          margin-left: 0;
+          margin-right: auto;
+        }
+        &:last-of-type {
+          margin-left: auto;
+          margin-right: 0;
         }
       }
     }
