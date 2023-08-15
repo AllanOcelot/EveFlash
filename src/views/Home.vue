@@ -3,7 +3,7 @@
     <v-container class="options-container">
       <div class="options-configure">
         <div class="top">
-          <p>What factions would you like to use</p>
+
         </div>
         <div class="choice-selection middle">
           <div class="choice-block factions">
@@ -29,9 +29,9 @@
           <v-btn class="blue" @click="changeStepSelection(true)">
             Next
           </v-btn>
-          <!--           <p>I would like to play for {{rounds}} on {{difficulty}} difficulty.</p>
-            -->
-
+          <div class="selection-choices">
+            <p>I would like to play for {{rounds}} on {{difficulty}} difficulty.</p>
+          </div>
         </div>
       </div>
     </v-container>
@@ -225,6 +225,7 @@
     }
     .bottom {
       display: flex;
+      flex-direction: column;
       .v-btn {
         margin: 0 auto;
         max-width: 200px;
@@ -236,6 +237,11 @@
           margin-left: auto;
           margin-right: 0;
         }
+      }
+      .selection-choices {
+        display: flex;
+        justify-content: center;
+        color: #fff;
       }
     }
   }
