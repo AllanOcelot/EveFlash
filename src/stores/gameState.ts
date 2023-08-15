@@ -32,6 +32,11 @@ export const useGameStateStore = defineStore('gameState', () => {
     selectedFactions.value.push(faction)
     console.log('Added following faction ' + faction );
   }
+  function removeFaction( faction : string ){
+    const removeIndex = selectedFactions.value.indexOf(faction);
+    selectedFactions.value.splice(removeIndex, 1)
+    console.log('Store now contains the following factions ' + selectedFactions.value)
+  }
 
 
   // Get data for each selected factions
@@ -50,5 +55,6 @@ export const useGameStateStore = defineStore('gameState', () => {
 
   return {
     addFaction,
+    removeFaction,
    }
 })
