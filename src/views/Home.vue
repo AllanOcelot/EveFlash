@@ -1,6 +1,13 @@
 <template>
   <v-main class="main-content">
-    <v-container class="options-container">
+    <v-container v-if="selectionStep === 0" class="introduction">
+      <h2>Welcome To Eve Flash</h2>
+      <p>The fun way to learn about Eve Online Ships!</p>
+      <v-btn class="clear">
+        Proceed
+      </v-btn>
+    </v-container>
+    <v-container class="options-container" v-else>
       <div class="options-configure">
         <div class="top">
 
@@ -133,6 +140,21 @@
   .options-container {
     display: flex;
     height: 100%;
+    color: #fff;
+  }
+
+  .introduction {
+    color: #fff;
+    text-align: center;
+    display: flex;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    p {
+      margin-bottom: 20px;
+    }
   }
 
   .options-configure {
