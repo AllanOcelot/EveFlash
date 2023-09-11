@@ -5,7 +5,7 @@
     "Faction": "EDENCOM",
     "Type": "Frigate",
     "TechLevel": "Faction",
-    "Images": ["https://www.eveflash.com/images/33/1.png"]
+    "Images": ["/images/33/1.png"]
   },
 
   {

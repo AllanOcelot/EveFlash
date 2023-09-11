@@ -193,22 +193,12 @@
 
 
   async function fetchShipData(){
-/*
-    await axios.get('/data.json')
-    .then(res => {
-      shipData = res.data
-      initCard()
-      loading.value = false
-    }
-    ).catch(err => console.log(err))
-*/
-
       // loop over each faction and get its corrosponding data set,
       for(let i = 0; i< gameObject.value.factions.length; i++){
         console.log('Attempting to load data for ' + gameObject.value.factions[i])
-
         await axios.get('/shipData/'+ gameObject.value.factions[i] +'.json').then(res => {
           console.log('We have loaded the data for ' + gameObject.value.factions[i])
+          // use spread operator to con cat our two array values into one.
           shipData = [...shipData, ...res.data]
         }).catch(err => console.log(err))
       }
@@ -226,9 +216,9 @@
     sanitiseAnswers()
 
     // Reminder: this is purely cosmetic for our users, so it feels like the app is doing more heavy lifting.
-//    setTimeout(() => {
-//      loading.value = false
-//    }, 700)
+    setTimeout(() => {
+      loading.value = false
+    }, 700)
   }
 
   function roundOver(result : string){
