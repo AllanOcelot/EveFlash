@@ -29,7 +29,7 @@
         </p>
       </div>
 
-      <div class="v-btn blue" @click="$emit('newGame')">
+      <div class="v-btn blue" @click="goHome()">
         New Game?
       </div>
     </div>
@@ -37,16 +37,16 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-    }
-  },
-  props: ['score'],
-  methods: {},
-  mounted () {},
-}
+<script lang="ts" setup>
+  import { useRouter } from 'vue-router'
+  const router = useRouter();
+
+  const props = defineProps(['score'])
+
+  function goHome(){
+    router.push('/')
+  }
+
 </script>
 
 <style lang="scss" scoped>
