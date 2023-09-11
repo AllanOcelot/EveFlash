@@ -6,7 +6,7 @@
       <v-btn class="blue" @click="router.push('game')">
         Start New Game
       </v-btn>
-      <v-btn class="blue">
+      <v-btn class="blue" @click="selectionStep = 1">
         Start Custom Game
       </v-btn>
     </v-container>
@@ -85,7 +85,7 @@
 
   const EmpiresData = ref<Array<Empire>>([
     {
-      Name: "Amarr Empire",
+      Name: "amarr",
       Image: "empire_1.png",
       Enabled: true,
       Color1: '#5c3e11',
@@ -93,7 +93,7 @@
       Selected: true,
     },
     {
-      Name: "Caldari State",
+      Name: "caldari",
       Image: "empire_2.png",
       Enabled: true,
       Color1: '#0d0e12',
@@ -101,7 +101,7 @@
       Selected: true,
     },
     {
-      Name: "Gallente Federation",
+      Name: "gallente",
       Image: "empire_3.png",
       Enabled: true,
       Color1: '#191c1a',
@@ -109,7 +109,7 @@
       Selected: true,
     },
     {
-      Name: "Minmatar Empire",
+      Name: "minmatar",
       Image: "empire_4.png",
       Enabled: true,
       Color1: '#2e1716',

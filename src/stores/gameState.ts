@@ -3,6 +3,9 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 
+
+
+
 // Define our interfaces
 interface gameObject {
   factions: string[],
@@ -12,30 +15,35 @@ interface gameObject {
 
 
 
+
+
 export const useGameStateStore = defineStore('gameState', () => {
 
+  // Default, we will select all factions.
+  const factionList: Array<string> = ['amarr', 'caldari', 'edencom', 'gallente', 'minmatar', 'misc', 'mordulegion', 'ore', 'sistersofeve'];
+
+
+  // Game object tracks all data relating to the instance of the game.
   const gameObject = ref<gameObject>({
-    factions: [],
+    factions: factionList,
     difficulty: 0,
     rounds: 0
   })
 
-  const gameData = ref({})
-
-
-
-  const selectedFactions = ref<string[]>([]);
 
 
   // Functions
   function addFaction( faction : string ){
-    selectedFactions.value.push(faction)
-    console.log('Added following faction ' + faction );
+    if(!gameObject.value.factions.includes(faction)){
+      gameObject.value.factions.push(faction)
+      console.log('Added following faction ' + faction );
+    }
   }
   function removeFaction( faction : string ){
-    const removeIndex = selectedFactions.value.indexOf(faction);
-    selectedFactions.value.splice(removeIndex, 1)
-    console.log('Store now contains the following factions ' + selectedFactions.value)
+    if(gameObject.value.factions.includes(faction)){
+      gameObject.value.factions.splice(gameObject.value.factions.indexOf(faction), 1)
+      console.log('Removed following faction ' + faction );
+    }
   }
 
 
@@ -54,6 +62,7 @@ export const useGameStateStore = defineStore('gameState', () => {
 
 
   return {
+    gameObject,
     addFaction,
     removeFaction,
    }

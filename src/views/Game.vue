@@ -1,5 +1,6 @@
 <template>
-  <v-main class="main-content">
+  <Suspense>
+    <v-main class="main-content">
       <flash-card
         v-if="loading === false  && gameOver === false"
         :loading="loading"
@@ -26,7 +27,13 @@
           You have completed {{ totalScore }} out of {{ cardsPlayed }} <span> {{ shipData.length }} remaining. </span>
         </p>
       </div>
-  </v-main>
+    </v-main>
+
+    <!-- loading state via #fallback slot -->
+    <template #fallback>
+      Loading...
+    </template>
+  </Suspense>
 </template>
 
 <script setup lang="ts">
@@ -35,6 +42,16 @@
   import JSConfetti from 'js-confetti'
   import FlashCard from '/src/components/FlashCard.vue'
   import EndGame from '/src/components/EndGame.vue'
+
+
+  // Import store.
+  import { useGameStateStore } from '@/stores/gameState'
+  import { storeToRefs } from 'pinia'
+  const store = useGameStateStore()
+  const { gameObject } = storeToRefs(store)
+
+
+
 
   const jsConfetti = new JSConfetti()
 
@@ -142,7 +159,7 @@
 
 
   // Called to generate our card
-  function initGame(){
+  async function initGame(){
     loading.value = true
     // Reset local vars
     currentShipID = 0
@@ -156,7 +173,14 @@
     localData.Factions = []
     localData.Types = []
 
-    axios.get('/data.json')
+
+    await fetchShipData().then( () => {
+      console.log('we fetched the data?')
+//      initCard()
+//      loading.value = false
+    });
+
+    await axios.get('/data.json')
     .then(res => {
       shipData = res.data
       initCard()
@@ -165,50 +189,62 @@
     ).catch(err => console.log(err))
   }
 
-    function initCard(){
-      loading.value = true
-      const shipID = randomIntFromInterval(0,shipData.length - 1)
-      currentShipID = shipID
-      selectedShip = shipData[shipID]
-      if(localData.Names.length === 0){
-        generateLocalData()
-      }
-      generateRandomAnswers()
-      sanitiseAnswers()
+
+  function fetchShipData(){
+    return new Promise((resolve) => {
       setTimeout(() => {
-        loading.value = false
-      }, 700)
+        console.log('------------')
+      console.log(gameObject)
+      console.log('------------')
+        resolve('resolved');
+      }, 2000);
+    });
+  }
+
+  function initCard(){
+    loading.value = true
+    const shipID = randomIntFromInterval(0,shipData.length - 1)
+    currentShipID = shipID
+    selectedShip = shipData[shipID]
+    if(localData.Names.length === 0){
+      generateLocalData()
+    }
+    generateRandomAnswers()
+    sanitiseAnswers()
+    setTimeout(() => {
+      loading.value = false
+    }, 700)
+  }
+
+  function roundOver(result : string){
+    cardsPlayed.value++;
+    if(result  === 'correct'){
+      totalScore.value++
+      streak.value++
+      if(streak.value % 10 == 0){
+        jsConfetti.addConfetti({
+          emojiSize: 100,
+          confettiNumber: 400,
+        })
+      }
+    } else {
+      streak.value = 0
     }
 
-    function roundOver(result : string){
-      cardsPlayed.value++;
-      if(result  === 'correct'){
-        totalScore.value++
-        streak.value++
-        if(streak.value % 10 == 0){
-          jsConfetti.addConfetti({
-            emojiSize: 100,
-            confettiNumber: 400,
-          })
-        }
-      } else {
-        streak.value = 0
-      }
+    // Remove the previous ship from the list of shipData.
+    shipData.splice(currentShipID, 1)
 
-      // Remove the previous ship from the list of shipData.
-      shipData.splice(currentShipID, 1)
-
-      if(shipData.length !== 0){
-        initCard()
-      }else{
-        gameOver.value = true
-      }
+    if(shipData.length !== 0){
+      initCard()
+    }else{
+      gameOver.value = true
     }
+  }
 
 
-    onMounted(() => {
-      initGame()
-    })
+  onMounted(() => {
+    initGame()
+  })
 </script>
 
 <style lang="scss" scoped>
