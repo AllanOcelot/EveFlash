@@ -49,9 +49,6 @@
   .v-app-bar.v-toolbar.main-header {
     z-index: 998 !important;
     background: transparent;
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     display: flex;
     flex-direction: column;

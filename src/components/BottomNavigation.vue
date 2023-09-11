@@ -20,13 +20,12 @@
 
 <style lang="scss" scoped>
 .footer {
-  border-top: 1px solid #f1f1f1;
-  color: #f1f1f1;
+  color: rgba(255,255,255,0.5);
   justify-content: center;
   font-size: 12px;
   font-weight: 100;
   max-height: 50px;
-  background: rgba(0,0,0,0.3);
+  background: transparent;
 }
 
 @media screen and (max-width: 800px){
