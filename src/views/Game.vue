@@ -120,13 +120,16 @@
         localData.Types.push(ship.Type)
       }
     }
+    console.log("Game Component has finished generating local data set")
   }
 
   function generateRandomAnswers(){
     const loopLength = 4;
+
+    // TODO: refactor this as currently the 'easy' setting only uses names,the rest is overhead?
     answerData.Names = [];
     answerData.Types = [];
-    answerData.Factions = [];
+    answerData.Factions = gameObject.value.factions;
 
     // Loop over the data to generate 'random' answers.
     while(answerData.Names.length < loopLength){
@@ -135,6 +138,9 @@
         answerData.Names.push(newName);
       }
     }
+
+    // TODO: see if the below is needed, removed for now as we only ask user to guess name
+    /*
     while(answerData.Factions.length < loopLength){
       const newFaction = localData.Factions[randomIntFromInterval(0,localData.Factions.length)];
       if(newFaction != null && newFaction != '' && !answerData.Factions.includes(newFaction)){
@@ -147,13 +153,15 @@
         answerData.Types.push(newType);
       }
     }
+    */
   }
 
+  // Ensures that the ship name appears in the answer. As the answers are random.
   function sanitiseAnswers(){
     const ship = selectedShip;
     if(!answerData.Names.includes(ship.Name)){
-      answerData.Names.splice(randomIntFromInterval(0,answerData.Names.length - 1), 1);
-      answerData.Names.splice(randomIntFromInterval(0,answerData.Names.length - 1), 0, ship.Name);
+      const indexToAlter = randomIntFromInterval(0,answerData.Names.length - 1);
+      answerData.Names.splice(indexToAlter, 1, ship.Name);
     }
   }
 
@@ -184,7 +192,7 @@
   }
 
 
-  function fetchShipData(){
+  async function fetchShipData(){
 /*
     await axios.get('/data.json')
     .then(res => {
@@ -195,26 +203,15 @@
     ).catch(err => console.log(err))
 */
 
-    return new Promise((resolve) => {
-      const loadedShipData = {}
       // loop over each faction and get its corrosponding data set,
-      gameObject.value.factions.forEach(element => {
-        console.log(element)
-         axios.get('/shipData/'+ element +'.json').then(res => {
+      for(let i = 0; i< gameObject.value.factions.length; i++){
+        console.log('Attempting to load data for ' + gameObject.value.factions[i])
+
+        await axios.get('/shipData/'+ gameObject.value.factions[i] +'.json').then(res => {
+          console.log('We have loaded the data for ' + gameObject.value.factions[i])
           shipData = [...shipData, ...res.data]
-        }
-        ).catch(err => console.log(err))
-      });
-
-
-
-      setTimeout(() => {
-        console.log('------------')
-          console.log(gameObject)
-        console.log('------------')
-        resolve('resolved');
-      }, 2000);
-    });
+        }).catch(err => console.log(err))
+      }
   }
 
   function initCard(){
@@ -227,9 +224,11 @@
     }
     generateRandomAnswers()
     sanitiseAnswers()
-    setTimeout(() => {
-      loading.value = false
-    }, 700)
+
+    // Reminder: this is purely cosmetic for our users, so it feels like the app is doing more heavy lifting.
+//    setTimeout(() => {
+//      loading.value = false
+//    }, 700)
   }
 
   function roundOver(result : string){

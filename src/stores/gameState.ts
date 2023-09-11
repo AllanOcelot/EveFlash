@@ -20,7 +20,8 @@ interface gameObject {
 export const useGameStateStore = defineStore('gameState', () => {
 
   // Default, we will select all factions.
-  const factionList: Array<string> = ['amarr', 'caldari', 'edencom', 'gallente', 'minmatar', 'misc', 'mordulegion', 'ore', 'sistersofeve'];
+  // Update: to save requests, lets have the default by the 'main 4' factions of the game.
+  const factionList: Array<string> = ['misc','amarr', 'caldari', 'gallente', 'minmatar'];
 
 
   // Game object tracks all data relating to the instance of the game.
