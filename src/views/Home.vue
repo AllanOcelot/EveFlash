@@ -3,7 +3,7 @@
     <v-container v-if="selectionStep === 0" class="introduction">
       <h2>Welcome To Eve Flash</h2>
       <p>The fun way to learn about Eve Online Ships!</p>
-      <v-btn class="clear">
+      <v-btn class="blue" @click="selectionStep = 1">
         Proceed
       </v-btn>
     </v-container>
@@ -67,14 +67,14 @@
   }
 
   interface Ship  {
-      Name: string,
-      Desc: string,
-      Faction: string,
-      Type: string,
-      Tank: string,
-      Turret: string,
-      TechLevel: string,
-      Images: string[]
+    Name: string,
+    Desc: string,
+    Faction: string,
+    Type: string,
+    Tank: string,
+    Turret: string,
+    TechLevel: string,
+    Images: string[]
   }
 
   const EmpiresData = ref<Array<Empire>>([
@@ -152,8 +152,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    h2 {
+      margin-bottom: 30px;
+    }
     p {
       margin-bottom: 20px;
+    }
+    .blue {
+      max-width: 250px;
     }
   }
 
@@ -193,8 +199,8 @@
           justify-content: center;
           .block {
             margin: auto 5px;
-            height: 100%;
-            border-radius: 33px;
+            height: 160px;
+            border-radius: 0;
             overflow: hidden;
             border: 1px solid rgba(255,255,255, 0.05);
             display: flex;
@@ -209,6 +215,10 @@
             transition: all 0.6s;
             transition-delay: 0.01s;
             position: relative;
+
+            img {
+              max-width: 100px;
+            }
 
             .info {
               position: absolute;

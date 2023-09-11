@@ -22,10 +22,19 @@
   font-weight: normal;
   font-size: 16px;
   padding: 0 20px;
-  background: transparent;
+  background: linear-gradient(rgba(255,255,255,0.0), rgba(255,255,255,0.0));
   border-radius: 4px;
+  color: rgba(255,255,255,0.6);
   border: 2px solid rgba(255,255,255,0.5);
   transition: all 0.3s;
   cursor: pointer;
   line-height: normal;
+  box-shadow: none;
+  transition: all 0.3s;
+
+  &:hover{
+    color: rgba(255,255,255,1);
+    background: linear-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.2));
+    transition: all 0.3s;
+  }
 }

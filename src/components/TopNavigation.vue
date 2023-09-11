@@ -1,27 +1,21 @@
 <template>
   <v-app-bar :elevation="0" class="main-header">
-    <v-container>
-      <v-row align="center">
-        <v-col class="text-left">
-          <span class="logo">
-            EveFlash
-          </span>
-        </v-col>
-        <v-col class="text-right links">
-          <v-btn
-            class="more-info"
-            @click="dialog = true"
-          >
-          More Information
-          </v-btn>
-          <a href="https://github.com/AllanOcelot/EveFlash" target="blank" title="Github">
-            <v-icon>
-            mdi-github
-          </v-icon>
-          </a>
-        </v-col>
-      </v-row>
-    </v-container>
+    <span class="text-left logo">
+      EveFlash
+    </span>
+    <div class="text-right links">
+      <v-btn
+        class="more-info"
+        @click="dialog = true"
+      >
+        More Information
+      </v-btn>
+    <a href="https://github.com/AllanOcelot/EveFlash" target="blank" title="Github">
+      <v-icon>
+        mdi-github
+      </v-icon>
+    </a>
+    </div>
   </v-app-bar>
 
 
@@ -50,39 +44,49 @@
 </script>
 
 <style lang="scss" scoped>
-  .main-header {
+
+  // We need to over specify here
+  .v-app-bar.v-toolbar.main-header {
     z-index: 998 !important;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
   .logo {
     font-size: 25px;
     font-weight: 700;
     color: #f5c745;
     text-shadow: 1px 1px 4px rgb(0 0 0 / 70%);
+    margin: 0 auto 0 20px;
   }
 
-  .links a {
-    color: #f1f1f1;
-    opacity: 0.6;
-    transition: all 0.3s;
-    text-decoration: none;
-    &:hover{
-      color: #fff;
-      opacity: 1;
+
+  .links {
+    margin: 0 20px 0 auto;
+
+    a {
+      color: #f1f1f1;
+      opacity: 0.6;
+      transition: all 0.3s;
+      text-decoration: none;
+      &:hover{
+        color: #fff;
+        opacity: 1;
+      }
     }
   }
+
+
 
   .more-info {
     margin-right: 20px;
     font-size: 12px;
     padding: 0 10px;
     background: rgba(255,255,255,0.2);
-  }
-
-
-  .v-app-bar.v-toolbar.main-header {
-    background: #4f717a59;
-    color: #fff;
-    border-bottom: 1px solid #f1f1f173;
   }
 
 

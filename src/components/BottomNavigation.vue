@@ -26,7 +26,7 @@
   font-size: 12px;
   font-weight: 100;
   max-height: 50px;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.3);
 }
 
 @media screen and (max-width: 800px){
