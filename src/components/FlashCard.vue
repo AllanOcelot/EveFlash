@@ -30,7 +30,7 @@
     </div>
 
     <transition name="bounce">
-      <div class="overlay" :class="cardStatus" v-if="cardStatus !== null">
+      <div class="overlay" :class="cardStatus" v-if="cardStatus !== ''">
         <div class="content">
           <div v-if="cardStatus === 'correct'">
             <h3>Bingo</h3>
@@ -56,49 +56,45 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      cardData: {
-        image: null,
-      },
-      cardStatus: null
+<script lang="ts" setup>
+  import { ref, onMounted } from 'vue'
+
+  let cardData = ref({
+    image: null,
+  })
+  let cardStatus = ref<string>()
+
+
+  const props = defineProps(['ship', 'options', 'difficulty'])
+  const emit = defineEmits(['finished'])
+
+  function generateRandomImage(){
+    const imageLength = props.ship.Images.length;
+    return props.ship.Images[Math.floor(Math.random() * (imageLength - 0) + 0)];
+  }
+
+  function initCard(){
+    cardStatus.value = '';
+    cardData.value.image = generateRandomImage()
+  }
+
+  function checkEasy(nameInput:string){
+    if(nameInput === props.ship.Name){
+      console.log('We got a winner')
+      cardStatus.value = 'correct';
+    }else{
+      console.log('loser!');
+      cardStatus.value = 'wrong';
     }
-  },
-  props: ['ship', 'options', 'difficulty'],
-  methods: {
-    generateRandomImage(){
-      const imageLength = this.ship.Images.length;
-      return this.ship.Images[Math.floor(Math.random() * (imageLength - 0) + 0)];
-    },
+  }
 
-    initCard(){
-      this.cardStatus = null;
-      this.cardData.image = this.generateRandomImage();
-    },
+  function finished() {
+    emit('finished', cardStatus)
+  }
 
-
-    // Simple, just check if they got the name right
-    checkEasy(nameInput){
-      if(nameInput === this.ship.Name){
-        console.log('We got a winner')
-        this.cardStatus = 'correct';
-      }else{
-        console.log('loser!');
-        this.cardStatus = 'wrong';
-      }
-    },
-
-    finished() {
-      this.$emit('finished', this.cardStatus)
-    }
-
-  },
-  mounted () {
-    this.initCard();
-  },
-}
+  onMounted(() => {
+    initCard()
+  })
 </script>
 
 <style lang="scss" scoped>

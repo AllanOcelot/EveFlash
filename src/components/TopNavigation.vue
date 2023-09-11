@@ -1,8 +1,8 @@
 <template>
   <v-app-bar :elevation="0" class="main-header">
-    <span class="text-left logo">
+    <router-link class="text-left logo" to="/">
       EveFlash
-    </span>
+    </router-link>
     <div class="text-right links">
       <v-btn
         class="more-info"
@@ -59,6 +59,12 @@
     color: #f5c745;
     text-shadow: 1px 1px 4px rgb(0 0 0 / 70%);
     margin: 0 auto 0 20px;
+    text-decoration: none;
+    opacity: 0.6;
+    transition: all 0.3s;
+    &:hover{
+      opacity: 1;
+    }
   }
 
 

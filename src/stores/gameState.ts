@@ -47,16 +47,11 @@ export const useGameStateStore = defineStore('gameState', () => {
     }
   }
 
-
-  // Get data for each selected factions
-  function getGameData () {
-    for(let i  = 0; 0 < gameObject.value.factions.length; i++){
-      axios.get('/' + gameObject.value.factions[i]  + '.json')
-      .then(res => {
-        res.data
-      }
-      ).catch(err => console.log(err))
-    }
+  // Reset game options,
+  function reset(){
+    gameObject.value.factions = factionList
+    gameObject.value.difficulty = 0
+    gameObject.value.rounds = 0
   }
 
 
@@ -66,5 +61,6 @@ export const useGameStateStore = defineStore('gameState', () => {
     gameObject,
     addFaction,
     removeFaction,
+    reset,
    }
 })

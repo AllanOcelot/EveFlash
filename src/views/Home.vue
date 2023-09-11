@@ -140,6 +140,7 @@
 
   onMounted(() => {
     // unsure if we should clear store on fresh mount? Could avoid issues re:mid game refresh etc etc
+    store.reset();
   })
 </script>
 
