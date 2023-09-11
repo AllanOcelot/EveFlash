@@ -10,21 +10,56 @@
         Start Custom Game
       </v-btn>
     </v-container>
+
     <v-container class="options-container" v-else>
       <div class="options-configure">
         <div class="top">
+          <h2>Configure Game Settings:</h2>
+          <P class="config-details">
+            I would like to play a
+            <v-select
+            :items="['quick', 'standard', 'full']"
+            v-model="rounds"
+            variant="underlined"
+            />
+            game of EveFlash, on the
+
+            <v-select
+              :items="['easy', 'medium', 'hard']"
+              v-model="difficulty"
+              variant="underlined"
+            ></v-select>
+            difficulty setting.
+        </P>
+
+        <p>Using the following factions</p>
+
+
+          <div class="selectedFactions"
+            v-for="(empire, index) in gameObject.factions" :key="index"
+          >
+            <img :src="'/icons/' + empire + '.png'" :alt="empire">
+            <span @click="store.removeFaction(empire)">X</span>
+          </div>
+
+
+
+
+
+
+
 
         </div>
         <div class="choice-selection middle">
           <div class="choice-block factions">
             <div class="empires">
-              <div class="block"
+              <div class="empireBlock"
                   v-for="(empire, index) in EmpiresData" :key="index"
                   :style="`background-image: linear-gradient(360deg, ${empire.Color1}, ${empire.Color2});`"
                   :class="[(empire.Enabled ? '' : 'unavailable'), (empire.Selected ? '' : 'Selected')]"
-                  @click="selectFaction(index)"
-                  >
-                <img :src="'/icons/' + empire.Image" :alt="empire.Name">
+                  @click="store.addFaction(empire.Name)"
+              >
+              <img :src="'/icons/' + empire.Name + '.png'" :alt="empire.Name">
               </div>
             </div>
             <div class="minor">
@@ -39,9 +74,6 @@
           <v-btn class="blue" @click="changeStepSelection(true)">
             Next
           </v-btn>
-          <div class="selection-choices">
-            <p>I would like to play for {{rounds}} on {{difficulty}} difficulty.</p>
-          </div>
         </div>
       </div>
     </v-container>
@@ -50,18 +82,20 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, computed } from 'vue'
   import { useRouter } from 'vue-router'
   const router = useRouter();
 
 
   import { useGameStateStore } from '@/stores/gameState'
+  import { storeToRefs } from 'pinia'
   const store = useGameStateStore()
+  const { gameObject } = storeToRefs(store)
 
 
   let selectionStep = ref(0);
-  let rounds = ref(0);
-  let difficulty = ref('Easy');
+  let rounds = ref('quick');
+  let difficulty = ref('easy');
 
   interface Empire {
     Name: string,
@@ -82,6 +116,9 @@
     TechLevel: string,
     Images: string[]
   }
+
+
+
 
   const EmpiresData = ref<Array<Empire>>([
     {
@@ -184,9 +221,72 @@
       color: #fff;
     }
 
+    .config-details {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .v-input {
+        margin: 0 20px;
+        display: inline-block;
+        max-width: 100px;
+      }
+    }
+
 
     .choice-selection {
 
+    }
+
+    .selectedFactions {
+      border: 1px solid #fff;
+      background: transparent;
+      display: inline-block;
+    }
+
+    .empireBlock {
+      margin: auto 5px;
+      height: 80px;
+      max-width: 160px;
+      overflow: hidden;
+      display: flex;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 auto;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.2);
+      transition: all 0.6s;
+      transition-delay: 0.01s;
+      position: relative;
+      border-radius: 60px;
+
+      img {
+        max-width: 60px;
+      }
+
+      .info {
+        position: absolute;
+        bottom: 0px;
+        border-top: 1px solid rgb(255 255 255 / 44%);
+        padding: 20px 0;
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+        background: rgba(0,0,0,0.5);
+        &.unavailable {
+          color: red;
+          border-color: red;
+        }
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+      &.unavailable {
+        cursor: default;
+      }
     }
 
 
@@ -205,53 +305,6 @@
           height: 70%;
           width: 100%;
           justify-content: center;
-          .block {
-            margin: auto 5px;
-            height: 160px;
-            border-radius: 0;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255, 0.05);
-            display: flex;
-            flex: 1;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1 auto;
-            text-align: center;
-            border: 1px solid rgba(0,0,0,0.2);
-            transition: all 0.6s;
-            transition-delay: 0.01s;
-            position: relative;
-
-            img {
-              max-width: 100px;
-            }
-
-            .info {
-              position: absolute;
-              bottom: 0px;
-              border-top: 1px solid rgb(255 255 255 / 44%);
-              padding: 20px 0;
-              width: 100%;
-              text-align: center;
-              color: #fff;
-              font-weight: bold;
-              background: rgba(0,0,0,0.5);
-              &.unavailable {
-                color: red;
-                border-color: red;
-              }
-            }
-
-            &:hover {
-              opacity: 1;
-            }
-            &.unavailable {
-              cursor: default;
-            }
-          }
-
           &:hover {
             .block {
               opacity: 0.5;

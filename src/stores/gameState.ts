@@ -27,10 +27,24 @@ export const useGameStateStore = defineStore('gameState', () => {
   // Game object tracks all data relating to the instance of the game.
   const gameObject = ref<gameObject>({
     factions: factionList,
-    difficulty: 0,
+    // 0 - easy: show faction, show tech level. 1 - medium : show faction: hard: show nothing.
+    difficulty: 'easy',
+    // divide the total number of cards by.
     rounds: 0
   })
 
+
+  function setDifficulty( difficulty : string ){
+    if(difficulty === 'easy' || difficulty === 'medium' || difficulty === 'hard'){
+      gameObject.value.difficulty = difficulty;
+    }
+  }
+
+  function setRounds( rounds : number ){
+    if(difficulty === 0 || difficulty === 25 || difficulty === 50){
+      gameObject.value.difficulty = rounds;
+    }
+  }
 
 
   // Functions
@@ -61,6 +75,8 @@ export const useGameStateStore = defineStore('gameState', () => {
     gameObject,
     addFaction,
     removeFaction,
+    setRounds,
+    setDifficulty,
     reset,
    }
 })
