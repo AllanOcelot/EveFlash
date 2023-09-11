@@ -176,10 +176,16 @@
 
     await fetchShipData().then( () => {
       console.log('we fetched the data?')
-//      initCard()
-//      loading.value = false
+      console.log('We loaded the following data')
+      console.log(shipData)
+      initCard()
+      loading.value = false
     });
+  }
 
+
+  function fetchShipData(){
+/*
     await axios.get('/data.json')
     .then(res => {
       shipData = res.data
@@ -187,15 +193,25 @@
       loading.value = false
     }
     ).catch(err => console.log(err))
-  }
+*/
 
-
-  function fetchShipData(){
     return new Promise((resolve) => {
+      const loadedShipData = {}
+      // loop over each faction and get its corrosponding data set,
+      gameObject.value.factions.forEach(element => {
+        console.log(element)
+         axios.get('/shipData/'+ element +'.json').then(res => {
+          shipData = [...shipData, ...res.data]
+        }
+        ).catch(err => console.log(err))
+      });
+
+
+
       setTimeout(() => {
         console.log('------------')
-      console.log(gameObject)
-      console.log('------------')
+          console.log(gameObject)
+        console.log('------------')
         resolve('resolved');
       }, 2000);
     });
