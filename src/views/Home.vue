@@ -3,8 +3,11 @@
     <v-container v-if="selectionStep === 0" class="introduction">
       <h2>Welcome To Eve Flash</h2>
       <p>The fun way to learn about Eve Online Ships!</p>
-      <v-btn class="blue" @click="selectionStep = 1">
-        Proceed
+      <v-btn class="blue" @click="router.push('game')">
+        Start New Game
+      </v-btn>
+      <v-btn class="blue">
+        Start Custom Game
       </v-btn>
     </v-container>
     <v-container class="options-container" v-else>
@@ -48,6 +51,9 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
+  const router = useRouter();
+
 
   import { useGameStateStore } from '@/stores/gameState'
   const store = useGameStateStore()
@@ -84,7 +90,7 @@
       Enabled: true,
       Color1: '#5c3e11',
       Color2: '#f9f5ba',
-      Selected: false,
+      Selected: true,
     },
     {
       Name: "Caldari State",
@@ -92,7 +98,7 @@
       Enabled: true,
       Color1: '#0d0e12',
       Color2: '#adb4bb',
-      Selected: false,
+      Selected: true,
     },
     {
       Name: "Gallente Federation",
@@ -100,7 +106,7 @@
       Enabled: true,
       Color1: '#191c1a',
       Color2: '#bfdddd',
-      Selected: false,
+      Selected: true,
     },
     {
       Name: "Minmatar Empire",
@@ -108,7 +114,7 @@
       Enabled: true,
       Color1: '#2e1716',
       Color2: '#a13131',
-      Selected: false,
+      Selected: true,
     },
   ])
 
@@ -130,6 +136,7 @@
       selectionStep.value--
     }
   }
+
 
   onMounted(() => {
     // unsure if we should clear store on fresh mount? Could avoid issues re:mid game refresh etc etc
