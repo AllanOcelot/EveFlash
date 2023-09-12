@@ -12,7 +12,7 @@
         <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up.</p>
         <p>If you like it, consider donating some ISK or not podding me the next time you see me. </p>
         <hr>
-        <p class="mb-0"><small>Last Updated: 11th August 23</small></p>
+        <p class="mb-0"><small>Last Updated: 12th August 23</small></p>
         <hr>
         <h3>People I like</h3>
         <p>If you like this, why not check out...</p>

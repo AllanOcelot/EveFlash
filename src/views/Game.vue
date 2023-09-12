@@ -1,17 +1,17 @@
 <template>
-  <v-main class="main-content">
+  <Suspense>
+    <v-main class="main-content">
       <flash-card
         v-if="loading === false  && gameOver === false"
         :loading="loading"
-        :difficulty="difficulty"
         :ship="selectedShip"
         :options="answerData"
         @finished="roundOver"
       ></flash-card>
       <EndGame
         v-if="gameOver === true"
-        :score="(100 * totalScore) / cardsPlayed"
-        @newGame="initGame"
+        :score="(100 * correct) / cardsPlayed"
+        @newGame="router.push('/')"
       />
       <div v-if="loading === true" class="pre-loader">
           <v-progress-circular
@@ -23,18 +23,35 @@
 
       <div class="score" v-if="loading === false">
         <p>
-          You have completed {{ totalScore }} out of {{ cardsPlayed }} <span> {{ shipData.length }} remaining. </span>
+          You have completed {{ cardsPlayed }} out of {{ shipData.length }}
+          <span class="correct">{{ correct }} Correct </span>
+          <span class="incorrect">{{ incorrect }} Incorrect </span>
         </p>
       </div>
-  </v-main>
+    </v-main>
+
+    <!-- loading state via #fallback slot -->
+    <template #fallback>
+      Loading...
+    </template>
+  </Suspense>
 </template>
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
+  const router = useRouter();
   import axios from 'axios'
   import JSConfetti from 'js-confetti'
   import FlashCard from '/src/components/FlashCard.vue'
   import EndGame from '/src/components/EndGame.vue'
+
+
+  // Import store.
+  import { useGameStateStore } from '@/stores/gameState'
+  import { storeToRefs } from 'pinia'
+  const store = useGameStateStore()
+  const { gameObject } = storeToRefs(store)
 
   const jsConfetti = new JSConfetti()
 
@@ -62,15 +79,16 @@
   let currentShipID = 0
 
   // Difficulty, 1 = easy, 2 = med, 3 = hard
-  let difficulty =  1
+  let difficulty =  ref('easy')
   let loading =  ref(true)
   let cardsPlayed = ref(0)
-  let totalScore = ref(0)
   let gameOver = ref(false)
+  let correct = ref(0)
+  let incorrect = ref(0)
   let streak = ref(0)
 
 
-  let shipData : Ship[] = []
+  let shipData = ref<Ship[]>([])
   let selectedShip : Ship;
   let localData : localDataIT ={
     Names: [],
@@ -91,8 +109,8 @@
   }
 
   function generateLocalData(){
-    for (var i = 0; i < shipData.length; i++){
-      const ship : Ship = shipData[i];
+    for (var i = 0; i < shipData.value.length; i++){
+      const ship : Ship = shipData.value[i];
       if(!localData.Names.includes(ship.Name)){
         localData.Names.push(ship.Name)
       }
@@ -103,13 +121,16 @@
         localData.Types.push(ship.Type)
       }
     }
+    console.log("Game Component has finished generating local data set")
   }
 
   function generateRandomAnswers(){
     const loopLength = 4;
+
+    // TODO: refactor this as currently the 'easy' setting only uses names,the rest is overhead?
     answerData.Names = [];
     answerData.Types = [];
-    answerData.Factions = [];
+    answerData.Factions = gameObject.value.factions;
 
     // Loop over the data to generate 'random' answers.
     while(answerData.Names.length < loopLength){
@@ -118,6 +139,9 @@
         answerData.Names.push(newName);
       }
     }
+
+    // TODO: see if the below is needed, removed for now as we only ask user to guess name
+    /*
     while(answerData.Factions.length < loopLength){
       const newFaction = localData.Factions[randomIntFromInterval(0,localData.Factions.length)];
       if(newFaction != null && newFaction != '' && !answerData.Factions.includes(newFaction)){
@@ -130,85 +154,123 @@
         answerData.Types.push(newType);
       }
     }
+    */
   }
 
+  // Ensures that the ship name appears in the answer. As the answers are random.
   function sanitiseAnswers(){
     const ship = selectedShip;
     if(!answerData.Names.includes(ship.Name)){
-      answerData.Names.splice(randomIntFromInterval(0,answerData.Names.length - 1), 1);
-      answerData.Names.splice(randomIntFromInterval(0,answerData.Names.length - 1), 0, ship.Name);
+      const indexToAlter = randomIntFromInterval(0,answerData.Names.length - 1);
+      answerData.Names.splice(indexToAlter, 1, ship.Name);
     }
   }
 
 
   // Called to generate our card
-  function initGame(){
+  async function initGame(){
     loading.value = true
     // Reset local vars
     currentShipID = 0
-    difficulty =  1
     cardsPlayed.value = 0
-    totalScore.value = 0
     streak.value = 0
+    shipData.value = []
     gameOver.value = false
 
     localData.Names = []
     localData.Factions = []
     localData.Types = []
 
-    axios.get('/data.json')
-    .then(res => {
-      shipData = res.data
+
+    await fetchShipData().then( () => {
       initCard()
       loading.value = false
-    }
-    ).catch(err => console.log(err))
+    });
   }
 
-    function initCard(){
-      loading.value = true
-      const shipID = randomIntFromInterval(0,shipData.length - 1)
-      currentShipID = shipID
-      selectedShip = shipData[shipID]
-      if(localData.Names.length === 0){
-        generateLocalData()
+
+  async function fetchShipData(){
+      // loop over each faction and get its corrosponding data set,
+      for(let i = 0; i< gameObject.value.factions.length; i++){
+        console.log('Attempting to load data for ' + gameObject.value.factions[i])
+        await axios.get('/shipData/'+ gameObject.value.factions[i] +'.json').then(res => {
+          console.log('We have loaded the data for ' + gameObject.value.factions[i])
+          // use spread operator to con cat our two array values into one.
+          shipData.value = [...shipData.value, ...res.data]
+        }).catch(err => console.log(err))
       }
-      generateRandomAnswers()
-      sanitiseAnswers()
-      setTimeout(() => {
-        loading.value = false
-      }, 700)
+    shuffleArray(shipData.value)
+    setupGameOptions()
+  }
+
+  function initCard(){
+    loading.value = true
+    const shipID = randomIntFromInterval(0,shipData.value.length - 1)
+    currentShipID = shipID
+    selectedShip = shipData.value[shipID]
+    if(localData.Names.length === 0){
+      generateLocalData()
+    }
+    generateRandomAnswers()
+    sanitiseAnswers()
+
+    // Reminder: this is purely cosmetic for our users, so it feels like the app is doing more heavy lifting.
+    setTimeout(() => {
+      loading.value = false
+    }, 700)
+  }
+
+  function roundOver(result : string){
+    cardsPlayed.value++;
+    if(result  === 'correct'){
+      correct.value++
+      streak.value++
+      if(streak.value % 10 == 0){
+        jsConfetti.addConfetti({
+          emojiSize: 100,
+          confettiNumber: 400,
+        })
+      }
+    } else {
+      incorrect.value++
+      streak.value = 0
     }
 
-    function roundOver(result : string){
-      cardsPlayed.value++;
-      if(result  === 'correct'){
-        totalScore.value++
-        streak.value++
-        if(streak.value % 10 == 0){
-          jsConfetti.addConfetti({
-            emojiSize: 100,
-            confettiNumber: 400,
-          })
-        }
-      } else {
-        streak.value = 0
-      }
+    // Remove the previous ship from the list of shipData.
+    shipData.value.splice(currentShipID, 1)
 
-      // Remove the previous ship from the list of shipData.
-      shipData.splice(currentShipID, 1)
-
-      if(shipData.length !== 0){
-        initCard()
-      }else{
-        gameOver.value = true
-      }
+    if(shipData.value.length !== 0){
+      initCard()
+    }else{
+      gameOver.value = true
     }
+  }
+
+  //"Fisher-Yates" Sorting
+  function shuffleArray(array: Ship[]){
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
 
 
-    onMounted(() => {
-      initGame()
-    })
+  function setupGameOptions(){
+    // 'full' use all the ship data, no need to splice.
+    // Standard rounds : 30 cards.
+    if(gameObject.value.rounds === 'standard'){
+      shipData.value.length = 30
+    }
+    // Quick rounds are 20 rounds.
+    if(gameObject.value.rounds === 'quick'){
+      shipData.value.length = 20
+    }
+  }
+
+  onMounted(() => {
+    initGame()
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -249,6 +311,13 @@
       margin-left: 10px;
       padding-left: 10px;
       border-left: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
     }
   }
 

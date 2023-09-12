@@ -1,98 +1,53 @@
 <template>
   <v-main class="main-content">
-    <v-container class="options-container">
-      <div class="options-configure">
-        <div class="top">
-          <h2>EVEFLASH : Learn The Ships Of Eve Online</h2>
-          <p>Select factions and configure options below to begin training.</p>
-        </div>
-        <div class="middle">
-          <div class="factions">
-            <div class="empires">
-              <div class="block"
-                  v-for="empire in EmpiresData" :key="empire.Name"
-                  :style="`background-image: linear-gradient(360deg, ${empire.Color1}, ${empire.Color2});`"
-                  :class="empire.Enabled ? '' : 'unavailable'"
-                  >
-                <img :src="'/icons/' + empire.Image" :alt="empire.Name">
-                <p class="info" :class="empire.Enabled ? '' : 'unavailable'">
-                  <span v-if="empire.Enabled" @click="store.addFaction(empire.Name)">
-                    Select {{ empire.Name }}
-                  </span>
-                  <span v-else>
-                    Not Currently Available
-                  </span>
-                </p>
-              </div>
-            </div>
-            <div class="minor">
+    <v-container class="introduction">
+      <h2>Welcome To Eve Flash</h2>
+      <p>The fun way to learn about Eve Online Ships!</p>
+      <v-btn class="blue startNew" @click="router.push('game')">
+        Start New Game
+        <v-tooltip
+          activator="parent"
+          location="top"
+          origin="centre"
+          open-delay="220"
+          attach="startNew"
+        >
+        Start a new game, using 'standard' settings.
+      </v-tooltip>
+      </v-btn>
+      <v-btn class="blue gameSettings" @click="router.push('/setup')">
+        Start Custom Game
+        <v-tooltip
+          activator="parent"
+          location="bottom"
+          origin="centre"
+          open-delay="220"
+          attach="gameSettings"
+        >
+        Tweak settings for personal taste
+      </v-tooltip>
+      </v-btn>
 
-            </div>
-          </div>
-        </div>
-        <div class="bottom">
-          <p>I would like to play for {{rounds}} on {{difficulty}} difficulty.</p>
-        </div>
+      <div class="notice-banner">
+        Please be aware - Ship Data / images are being added when I have free time. <br>
+        Thank you for your patience and support &lt;3.
       </div>
-    </v-container>
 
+    </v-container>
   </v-main>
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
+  import { onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
+  const router = useRouter();
 
   import { useGameStateStore } from '@/stores/gameState'
   const store = useGameStateStore()
 
-
-  let rounds = ref(0);
-  let difficulty = ref('Easy');
-
-  interface Ship  {
-      Name: string,
-      Desc: string,
-      Faction: string,
-      Type: string,
-      Tank: string,
-      Turret: string,
-      TechLevel: string,
-      Images: string[]
-  }
-
-  const EmpiresData = [
-    {
-      Name: "Amarr Empire",
-      Image: "empire_1.png",
-      Enabled: false,
-      Color1: '#5c3e11',
-      Color2: '#f9f5ba'
-    },
-    {
-      Name: "Caldari State",
-      Image: "empire_2.png",
-      Enabled: false,
-      Color1: '#0d0e12',
-      Color2: '#adb4bb'
-    },
-    {
-      Name: "Gallente Federation",
-      Image: "empire_3.png",
-      Enabled: false,
-      Color1: '#191c1a',
-      Color2: '#bfdddd'
-    },
-    {
-      Name: "Minmatar Empire",
-      Image: "empire_4.png",
-      Enabled: true,
-      Color1: '#2e1716',
-      Color2: '#a13131'
-    },
-  ]
-
   onMounted(() => {
-    console.log("Hello friend");
+    // unsure if we should clear store on fresh mount? Could avoid issues re:mid game refresh etc etc
+    store.reset();
   })
 </script>
 
@@ -100,74 +55,36 @@
   .options-container {
     display: flex;
     height: 100%;
+    color: #fff;
   }
 
-  .options-configure {
-    width: 100%;
+  .introduction {
+    color: #fff;
+    text-align: center;
     display: flex;
-    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    align-items: center;
     justify-content: center;
-
-    .top {
-      text-align: center;
-      padding: 50px 0 20px 0;
-      font-size: 1rem;
-      color: #fff;
+    flex-direction: column;
+    h2 {
+      margin-bottom: 30px;
     }
-
-    .middle {
-      .factions {
-        width: 100%;
-        .empires {
-          display: flex;
-          flex-direction: row;
-          .block {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1 auto;
-            text-align: center;
-            height: 450px;
-            border: 1px solid rgba(0,0,0,0.2);
-            transition: all 0.6s;
-            transition-delay: 0.01s;
-            position: relative;
-
-            .info {
-              position: absolute;
-              bottom: 0px;
-              border-top: 1px solid rgb(255 255 255 / 44%);
-              padding: 20px 0;
-              width: 100%;
-              text-align: center;
-              color: #fff;
-              font-weight: bold;
-              background: rgba(0,0,0,0.5);
-              &.unavailable {
-                color: red;
-                border-color: red;
-              }
-            }
-
-            &:hover {
-              opacity: 1;
-            }
-            &.unavailable {
-              cursor: default;
-            }
-          }
-
-          &:hover {
-            .block {
-              opacity: 0.5;
-            }
-            .block:hover {
-              opacity: 1;
-            }
-          }
-        }
-      }
+    p {
+      margin-bottom: 20px;
     }
+    .blue {
+      max-width: 250px;
+    }
+  }
+
+  .notice-banner {
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 100px;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.5);
   }
 </style>

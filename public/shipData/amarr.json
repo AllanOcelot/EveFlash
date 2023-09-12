@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "impairor",
+    "Desc": "If you threw a snail hard enough into space, you'd get the impairor",
+    "Faction": "amarr",
+    "Type": "Cruiser",
+    "TechLevel": "1",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/pp1.png"]
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "ibis",
+    "Desc": "chances are you've flown in an Ibis. Chances are you did not like it.",
+    "Faction": "caldari",
+    "Type": "Cruiser",
+    "TechLevel": "1",
+    "Tank": "Shields",
+    "Images": ["/images/enga/ac1.png"]
+  }
+]

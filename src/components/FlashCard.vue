@@ -1,16 +1,24 @@
 <template>
   <div class="flashcard" v-if="ship" :class="cardStatus">
-    <div class="image" :style="{'background-image': 'url('  + cardData.image + ')'}"></div>
+    <div class="image" :style="{'background-image': 'url('  + cardData.image + ')'}">
+      <div class="faction-icon" v-if="difficulty === 'easy'">
+        <img :src="factionImage" alt="Faction">
+      </div>
+      <div class="tech-icon" v-if="ship.TechLevel !== '1' && difficulty != 'hard'">
+        <img :src="techImage" alt="Tech level">
+      </div>
+    </div>
 
     <!-- Guess the name dude, how much easier can it be ? -->
-    <div class="info easy" v-if="difficulty === 1">
+    <div class="info easy">
       <v-btn v-for="(item, index) in options.Names" class="blue" :key="index" @click="checkEasy(item)">
         {{ item }}
       </v-btn>
     </div>
 
     <!-- Guess the name, and ship type (frig, destroyer etc )-->
-    <div class="info medium" v-if="difficulty === 2">
+    <!--
+    <div class="info medium" v-if="difficulty === 'medium'">
       <p>Medium difficulty</p>
       {{ ship}}
       <div class="question">
@@ -21,16 +29,17 @@
       </div>
     </div>
 
-    <!-- Guess ALL the info about this ship -->
-    <div class="info hard" v-if="difficulty === 3">
+
+    <div class="info hard" v-if="difficulty === 'hard'">
       <p>Name: </p>
       <p>Size: </p>
       <p>Faction: </p>
       <p></p>
     </div>
+  -->
 
     <transition name="bounce">
-      <div class="overlay" :class="cardStatus" v-if="cardStatus !== null">
+      <div class="overlay" :class="cardStatus" v-if="cardStatus !== ''">
         <div class="content">
           <div v-if="cardStatus === 'correct'">
             <h3>Bingo</h3>
@@ -56,49 +65,65 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      cardData: {
-        image: null,
-      },
-      cardStatus: null
+<script lang="ts" setup>
+  import { ref, onMounted, computed } from 'vue'
+
+  // Import store.
+  import { useGameStateStore } from '@/stores/gameState'
+  import { storeToRefs } from 'pinia'
+  const store = useGameStateStore()
+  const { gameObject } = storeToRefs(store)
+
+  let difficulty = ref<string>('');
+
+  let cardData = ref({
+    image: null,
+  })
+  let cardStatus = ref<string>()
+
+
+  const props = defineProps(['ship', 'options'])
+  const emit = defineEmits(['finished'])
+
+  function generateRandomImage(){
+    const imageLength = props.ship.Images.length;
+    return props.ship.Images[Math.floor(Math.random() * (imageLength - 0) + 0)];
+  }
+
+  function initCard(){
+    cardStatus.value = '';
+    cardData.value.image = generateRandomImage()
+  }
+
+  function checkEasy(nameInput:string){
+    if(nameInput === props.ship.Name){
+      console.log('We got a winner')
+      cardStatus.value = 'correct';
+    }else{
+      console.log('loser!');
+      cardStatus.value = 'wrong';
     }
-  },
-  props: ['ship', 'options', 'difficulty'],
-  methods: {
-    generateRandomImage(){
-      const imageLength = this.ship.Images.length;
-      return this.ship.Images[Math.floor(Math.random() * (imageLength - 0) + 0)];
-    },
+  }
 
-    initCard(){
-      this.cardStatus = null;
-      this.cardData.image = this.generateRandomImage();
-    },
+  function finished() {
+    emit('finished', cardStatus.value)
+  }
+
+  // computed
+  const factionImage = computed(() => {
+    const imgURL = '/icons/factions/' + props.ship.Faction + '.png'
+    return imgURL
+  })
+  const techImage = computed(() => {
+    const imgURL = '/icons/tech/' + props.ship.TechLevel + '.png'
+    return imgURL
+  })
 
 
-    // Simple, just check if they got the name right
-    checkEasy(nameInput){
-      if(nameInput === this.ship.Name){
-        console.log('We got a winner')
-        this.cardStatus = 'correct';
-      }else{
-        console.log('loser!');
-        this.cardStatus = 'wrong';
-      }
-    },
-
-    finished() {
-      this.$emit('finished', this.cardStatus)
-    }
-
-  },
-  mounted () {
-    this.initCard();
-  },
-}
+  onMounted(() => {
+    difficulty.value = gameObject.value.difficulty;
+    initCard()
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -121,6 +146,32 @@ export default {
       width: 50%;
       background-size: cover;
       background-position: center center;
+      position: relative;
+
+      .faction-icon{
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px;
+        background: rgba(0,0,0,0.2);
+        z-index: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          max-width: 60px;
+        }
+      }
+      .tech-icon {
+        left: 0;
+        top: 0;
+        background: transparent;
+        z-index: 2;
+        img {
+          min-width: 40px;
+        }
+      }
+
     }
 
     .info {

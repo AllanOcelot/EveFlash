@@ -1,0 +1,29 @@
+[
+  {
+    "Name": "Skybreaker",
+    "Desc": "Honk honk, it's the sound of the... the junior officer on their coffee run.",
+    "Faction": "EDENCOM",
+    "Type": "Frigate",
+    "TechLevel": "Faction",
+    "Images": ["/images/33/1.png"]
+  },
+
+  {
+    "Name": "Stormbringer",
+    "Desc": "I used to be a police officer like you, then I took up a job in accounting...",
+    "Faction": "EDENCOM",
+    "Type": "Cruiser",
+    "TechLevel": "Faction",
+    "Images": ["https://www.eveflash.com/images/34/1.png"]
+  },
+
+  {
+    "Name": "Thunderchild",
+    "Desc": "The law doesn't report the weather scum bag.... but it's thunder, it's thunder outside.",
+    "Faction": "EDENCOM",
+    "Type": "Battleship",
+    "TechLevel": "Faction",
+    "Images": ["https://www.eveflash.com/images/35/1.png"]
+  }
+
+]
