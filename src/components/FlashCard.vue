@@ -10,7 +10,7 @@
     </div>
 
     <!-- Guess the name dude, how much easier can it be ? -->
-    <div class="info easy" v-if="difficulty === 'easy'">
+    <div class="info easy">
       <v-btn v-for="(item, index) in options.Names" class="blue" :key="index" @click="checkEasy(item)">
         {{ item }}
       </v-btn>

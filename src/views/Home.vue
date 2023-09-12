@@ -27,6 +27,12 @@
         Tweak settings for personal taste
       </v-tooltip>
       </v-btn>
+
+      <div class="notice-banner">
+        Please be aware - Ship Data / images are being added when I have free time. <br>
+        Thank you for your patience and support &lt;3.
+      </div>
+
     </v-container>
   </v-main>
 </template>
@@ -70,5 +76,15 @@
     .blue {
       max-width: 250px;
     }
+  }
+
+  .notice-banner {
+    font-size: 14px;
+    line-height: 24px;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 100px;
+    border: 1px solid rgba(255,255,255,0.5);
+    color: rgba(255,255,255,0.5);
   }
 </style>
