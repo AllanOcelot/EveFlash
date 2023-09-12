@@ -3,11 +3,29 @@
     <v-container v-if="selectionStep === 0" class="introduction">
       <h2>Welcome To Eve Flash</h2>
       <p>The fun way to learn about Eve Online Ships!</p>
-      <v-btn class="blue" @click="router.push('game')">
+      <v-btn class="blue startNew" @click="router.push('game')">
         Start New Game
+        <v-tooltip
+          activator="parent"
+          location="top"
+          origin="centre"
+          open-delay="220"
+          attach="startNew"
+        >
+        Start a new game, using 'standard' settings.
+      </v-tooltip>
       </v-btn>
-      <v-btn class="blue" @click="selectionStep = 1">
+      <v-btn class="blue gameSettings" @click="selectionStep = 1">
         Start Custom Game
+        <v-tooltip
+          activator="parent"
+          location="bottom"
+          origin="centre"
+          open-delay="220"
+          attach="gameSettings"
+        >
+        Tweak settings for personal taste
+      </v-tooltip>
       </v-btn>
     </v-container>
 
@@ -44,7 +62,7 @@
           <template v-slot:chip="{ props, item }">
             <v-chip
               v-bind="props"
-              :prepend-avatar="'/icons/' + item.title + '.png'"
+              :prepend-avatar="'/icons/factions/' + item.title + '.png'"
               :text="item.title"
             ></v-chip>
           </template>
@@ -74,7 +92,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted, computed } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
   const router = useRouter();
 
@@ -126,10 +144,14 @@
     if(!defineDifficulty.value.includes(difficulty.value)){
       errorMessage.value = 'Please select a difficulty from the provided list.'
       return
+    }else{
+      gameObject.value.difficulty = difficulty.value;
     }
     if(!defineRounds.value.includes(rounds.value)){
       errorMessage.value = 'Please select a rounds options from the provided list.'
       return
+    }else{
+      gameObject.value.rounds = rounds.value;
     }
     if(gameObject.value.factions.length < 1 || gameObject.value.factions.length > factionsList.value.length){
       errorMessage.value = 'You must select at least one faction.'

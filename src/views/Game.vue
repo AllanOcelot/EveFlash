@@ -4,15 +4,14 @@
       <flash-card
         v-if="loading === false  && gameOver === false"
         :loading="loading"
-        :difficulty="difficulty"
         :ship="selectedShip"
         :options="answerData"
         @finished="roundOver"
       ></flash-card>
       <EndGame
         v-if="gameOver === true"
-        :score="(100 * totalScore) / cardsPlayed"
-        @newGame="initGame"
+        :score="(100 * correct) / cardsPlayed"
+        @newGame="router.push('/')"
       />
       <div v-if="loading === true" class="pre-loader">
           <v-progress-circular
@@ -24,10 +23,9 @@
 
       <div class="score" v-if="loading === false">
         <p>
-          You have completed {{ totalScore }} out of {{ cardsPlayed }}
+          You have completed {{ cardsPlayed }} out of {{ shipData.length }}
           <span class="correct">{{ correct }} Correct </span>
           <span class="incorrect">{{ incorrect }} Incorrect </span>
-          <span> {{ shipData.length }} remaining. </span>
         </p>
       </div>
     </v-main>
@@ -41,6 +39,8 @@
 
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
+  import { useRouter } from 'vue-router'
+  const router = useRouter();
   import axios from 'axios'
   import JSConfetti from 'js-confetti'
   import FlashCard from '/src/components/FlashCard.vue'
@@ -52,9 +52,6 @@
   import { storeToRefs } from 'pinia'
   const store = useGameStateStore()
   const { gameObject } = storeToRefs(store)
-
-
-
 
   const jsConfetti = new JSConfetti()
 
@@ -82,17 +79,16 @@
   let currentShipID = 0
 
   // Difficulty, 1 = easy, 2 = med, 3 = hard
-  let difficulty =  1
+  let difficulty =  ref('easy')
   let loading =  ref(true)
   let cardsPlayed = ref(0)
-  let totalScore = ref(0)
   let gameOver = ref(false)
   let correct = ref(0)
   let incorrect = ref(0)
   let streak = ref(0)
 
 
-  let shipData : Ship[] = []
+  let shipData = ref<Ship[]>([])
   let selectedShip : Ship;
   let localData : localDataIT ={
     Names: [],
@@ -113,8 +109,8 @@
   }
 
   function generateLocalData(){
-    for (var i = 0; i < shipData.length; i++){
-      const ship : Ship = shipData[i];
+    for (var i = 0; i < shipData.value.length; i++){
+      const ship : Ship = shipData.value[i];
       if(!localData.Names.includes(ship.Name)){
         localData.Names.push(ship.Name)
       }
@@ -176,10 +172,9 @@
     loading.value = true
     // Reset local vars
     currentShipID = 0
-    difficulty =  1
     cardsPlayed.value = 0
-    totalScore.value = 0
     streak.value = 0
+    shipData.value = []
     gameOver.value = false
 
     localData.Names = []
@@ -201,18 +196,18 @@
         await axios.get('/shipData/'+ gameObject.value.factions[i] +'.json').then(res => {
           console.log('We have loaded the data for ' + gameObject.value.factions[i])
           // use spread operator to con cat our two array values into one.
-          shipData = [...shipData, ...res.data]
-          shuffleArray(shipData)
-
+          shipData.value = [...shipData.value, ...res.data]
         }).catch(err => console.log(err))
       }
+    shuffleArray(shipData.value)
+    setupGameOptions()
   }
 
   function initCard(){
     loading.value = true
-    const shipID = randomIntFromInterval(0,shipData.length - 1)
+    const shipID = randomIntFromInterval(0,shipData.value.length - 1)
     currentShipID = shipID
-    selectedShip = shipData[shipID]
+    selectedShip = shipData.value[shipID]
     if(localData.Names.length === 0){
       generateLocalData()
     }
@@ -229,7 +224,6 @@
     cardsPlayed.value++;
     if(result  === 'correct'){
       correct.value++
-      totalScore.value++
       streak.value++
       if(streak.value % 10 == 0){
         jsConfetti.addConfetti({
@@ -243,9 +237,9 @@
     }
 
     // Remove the previous ship from the list of shipData.
-    shipData.splice(currentShipID, 1)
+    shipData.value.splice(currentShipID, 1)
 
-    if(shipData.length !== 0){
+    if(shipData.value.length !== 0){
       initCard()
     }else{
       gameOver.value = true
@@ -262,10 +256,17 @@
   }
 
 
-  function fetchSettingsFromStore(){
-    //
+  function setupGameOptions(){
+    // 'full' use all the ship data, no need to splice.
+    // Standard rounds : 30 cards.
+    if(gameObject.value.rounds === 'standard'){
+      shipData.value.length = 30
+    }
+    // Quick rounds are 20 rounds.
+    if(gameObject.value.rounds === 'quick'){
+      shipData.value.length = 20
+    }
   }
-
 
   onMounted(() => {
     initGame()
