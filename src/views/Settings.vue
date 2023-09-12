@@ -1,33 +1,64 @@
 <template>
   <v-main class="main-content">
-    <v-container class="introduction">
-      <h2>Welcome To Eve Flash</h2>
-      <p>The fun way to learn about Eve Online Ships!</p>
-      <v-btn class="blue startNew" @click="router.push('game')">
-        Start New Game
-        <v-tooltip
-          activator="parent"
-          location="top"
-          origin="centre"
-          open-delay="220"
-          attach="startNew"
+    <v-container class="options-container">
+      <div class="options-configure">
+        <div class="top">
+          <h2>Configure Game Settings:</h2>
+          <p class="config-details">
+            I would like to play a
+            <v-select
+            :items="defineRounds"
+            v-model="rounds"
+            variant="underlined"
+            />
+            game of EveFlash, on the
+
+            <v-select
+              :items="defineDifficulty"
+              v-model="difficulty"
+              variant="underlined"
+            ></v-select>
+            difficulty setting.
+        </P>
+
+        <p>Using the following factions</p>
+        <v-autocomplete
+          chips
+          label="Faction Selection"
+          :items="factionsList"
+          v-model="gameObject.factions"
+          multiple
+          class="factionSelection"
         >
-        Start a new game, using 'standard' settings.
-      </v-tooltip>
-      </v-btn>
-      <v-btn class="blue gameSettings" @click="router.push('/setup')">
-        Start Custom Game
-        <v-tooltip
-          activator="parent"
-          location="bottom"
-          origin="centre"
-          open-delay="220"
-          attach="gameSettings"
-        >
-        Tweak settings for personal taste
-      </v-tooltip>
-      </v-btn>
+          <template v-slot:chip="{ props, item }">
+            <v-chip
+              v-bind="props"
+              :prepend-avatar="'/icons/factions/' + item.title + '.png'"
+              :text="item.title"
+            ></v-chip>
+          </template>
+        </v-autocomplete>
+
+          <v-alert
+            v-if="errorMessage"
+            type="error"
+            title="Warning:"
+            :text="errorMessage"
+          ></v-alert>
+
+        </div>
+
+        <div class="bottom">
+          <v-btn class="blue" @click="router.push('/')">
+            Prev
+          </v-btn>
+          <v-btn class="blue" @click="startGame()">
+            Next
+          </v-btn>
+        </div>
+      </div>
     </v-container>
+
   </v-main>
 </template>
 
@@ -36,9 +67,61 @@
   import { useRouter } from 'vue-router'
   const router = useRouter();
 
+
   import { useGameStateStore } from '@/stores/gameState'
   import { storeToRefs } from 'pinia'
   const store = useGameStateStore()
+  const { defineRounds, defineDifficulty, gameObject } = storeToRefs(store)
+
+  let selectionStep = ref(0)
+  let rounds = ref('quick')
+  let difficulty = ref('easy')
+  const factionsList = ref<string[]>(['misc','amarr', 'caldari', 'gallente', 'minmatar'])
+  let errorMessage = ref<string>()
+
+  interface Empire {
+    Name: string,
+    Image: string,
+    Enabled: boolean,
+    Color1: string,
+    Color2: string,
+    Selected: Boolean
+  }
+
+  interface Ship  {
+    Name: string,
+    Desc: string,
+    Faction: string,
+    Type: string,
+    Tank: string,
+    Turret: string,
+    TechLevel: string,
+    Images: string[]
+  }
+
+
+
+  function startGame(){
+    console.log(defineDifficulty.value)
+    if(!defineDifficulty.value.includes(difficulty.value)){
+      errorMessage.value = 'Please select a difficulty from the provided list.'
+      return
+    }else{
+      gameObject.value.difficulty = difficulty.value;
+    }
+    if(!defineRounds.value.includes(rounds.value)){
+      errorMessage.value = 'Please select a rounds options from the provided list.'
+      return
+    }else{
+      gameObject.value.rounds = rounds.value;
+    }
+    if(gameObject.value.factions.length < 1 || gameObject.value.factions.length > factionsList.value.length){
+      errorMessage.value = 'You must select at least one faction.'
+      return
+    }
+    router.push('/game')
+  }
+
 
   onMounted(() => {
     // unsure if we should clear store on fresh mount? Could avoid issues re:mid game refresh etc etc
