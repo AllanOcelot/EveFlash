@@ -15,7 +15,7 @@
       <div class="options-configure">
         <div class="top">
           <h2>Configure Game Settings:</h2>
-          <P class="config-details">
+          <p class="config-details">
             I would like to play a
             <v-select
             :items="['quick', 'standard', 'full']"
@@ -33,39 +33,24 @@
         </P>
 
         <p>Using the following factions</p>
+        <v-autocomplete
+          chips
+          label="Faction Selection"
+          :items="factionsList"
+          v-model="gameObject.factions"
+          multiple
+          class="factionSelection"
+        >
 
+        <template v-slot:chip="{ props, item }">
+          <v-chip
+            v-bind="props"
+            :prepend-avatar="'/icons/' + item.title + '.png'"
+            :text="item.title"
+          ></v-chip>
+        </template>
 
-          <div class="selectedFactions"
-            v-for="(empire, index) in gameObject.factions" :key="index"
-          >
-            <img :src="'/icons/' + empire + '.png'" :alt="empire">
-            <span @click="store.removeFaction(empire)">X</span>
-          </div>
-
-
-
-
-
-
-
-
-        </div>
-        <div class="choice-selection middle">
-          <div class="choice-block factions">
-            <div class="empires">
-              <div class="empireBlock"
-                  v-for="(empire, index) in EmpiresData" :key="index"
-                  :style="`background-image: linear-gradient(360deg, ${empire.Color1}, ${empire.Color2});`"
-                  :class="[(empire.Enabled ? '' : 'unavailable'), (empire.Selected ? '' : 'Selected')]"
-                  @click="store.addFaction(empire.Name)"
-              >
-              <img :src="'/icons/' + empire.Name + '.png'" :alt="empire.Name">
-              </div>
-            </div>
-            <div class="minor">
-
-            </div>
-          </div>
+        </v-autocomplete>
         </div>
         <div class="bottom">
           <v-btn class="blue" @click="changeStepSelection(false)" v-if="selectionStep >= 1">
@@ -96,6 +81,8 @@
   let selectionStep = ref(0);
   let rounds = ref('quick');
   let difficulty = ref('easy');
+  const factionsList = ref<string[]>(['misc','amarr', 'caldari', 'gallente', 'minmatar'])
+
 
   interface Empire {
     Name: string,
@@ -210,7 +197,9 @@
 
   .options-configure {
     width: 100%;
+    max-width: 724px;
     display: flex;
+    margin: 0 auto;
     flex-direction: column;
     justify-content: center;
 
@@ -219,6 +208,7 @@
       padding: 50px 0 20px 0;
       font-size: 1rem;
       color: #fff;
+      margin: auto auto 0 auto;
     }
 
     .config-details {
@@ -230,6 +220,11 @@
         display: inline-block;
         max-width: 100px;
       }
+    }
+
+    .factionSelection {
+      max-width: 600px;
+      margin: 5px auto auto auto;
     }
 
 
@@ -318,7 +313,8 @@
     }
     .bottom {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      margin: auto 0;
       .v-btn {
         margin: 0 auto;
         max-width: 200px;
