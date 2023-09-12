@@ -17,6 +17,11 @@ const routes = [
     name: 'game',
     component: () => import('@/views/Game.vue'),
   },
+  {
+    path: '/:pathMatch(.*)',
+    name: 'not-found',
+    component: () => import('@/views/NotFound.vue'),
+  }
 ]
 
 const router = createRouter({

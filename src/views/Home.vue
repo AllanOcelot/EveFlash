@@ -32,12 +32,11 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue'
+  import { onMounted } from 'vue'
   import { useRouter } from 'vue-router'
   const router = useRouter();
 
   import { useGameStateStore } from '@/stores/gameState'
-  import { storeToRefs } from 'pinia'
   const store = useGameStateStore()
 
   onMounted(() => {
@@ -70,146 +69,6 @@
     }
     .blue {
       max-width: 250px;
-    }
-  }
-
-  .options-configure {
-    width: 100%;
-    max-width: 724px;
-    display: flex;
-    margin: 0 auto;
-    flex-direction: column;
-    justify-content: center;
-
-    .top {
-      text-align: center;
-      padding: 50px 0 20px 0;
-      font-size: 1rem;
-      color: #fff;
-      margin: auto auto 0 auto;
-    }
-
-    .config-details {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .v-input {
-        margin: 0 20px;
-        display: inline-block;
-        max-width: 100px;
-      }
-    }
-
-    .factionSelection {
-      max-width: 600px;
-      margin: 5px auto auto auto;
-    }
-
-
-    .choice-selection {
-
-    }
-
-    .selectedFactions {
-      border: 1px solid #fff;
-      background: transparent;
-      display: inline-block;
-    }
-
-    .empireBlock {
-      margin: auto 5px;
-      height: 80px;
-      max-width: 160px;
-      overflow: hidden;
-      display: flex;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1 auto;
-      text-align: center;
-      border: 1px solid rgba(0,0,0,0.2);
-      transition: all 0.6s;
-      transition-delay: 0.01s;
-      position: relative;
-      border-radius: 60px;
-
-      img {
-        max-width: 60px;
-      }
-
-      .info {
-        position: absolute;
-        bottom: 0px;
-        border-top: 1px solid rgb(255 255 255 / 44%);
-        padding: 20px 0;
-        width: 100%;
-        text-align: center;
-        color: #fff;
-        font-weight: bold;
-        background: rgba(0,0,0,0.5);
-        &.unavailable {
-          color: red;
-          border-color: red;
-        }
-      }
-
-      &:hover {
-        opacity: 1;
-      }
-      &.unavailable {
-        cursor: default;
-      }
-    }
-
-
-
-    .middle {
-      display: flex;
-      flex: 1;
-      .factions {
-        display: flex;
-        flex: 1 auto;
-        width: 100%;
-        align-items: center;
-        .empires {
-          display: flex;
-          flex-direction: row;
-          height: 70%;
-          width: 100%;
-          justify-content: center;
-          &:hover {
-            .block {
-              opacity: 0.5;
-            }
-            .block:hover {
-              opacity: 1;
-            }
-          }
-        }
-      }
-    }
-    .bottom {
-      display: flex;
-      flex-direction: row;
-      margin: auto 0;
-      .v-btn {
-        margin: 0 auto;
-        max-width: 200px;
-        &:first-of-type {
-          margin-left: 0;
-          margin-right: auto;
-        }
-        &:last-of-type {
-          margin-left: auto;
-          margin-right: 0;
-        }
-      }
-      .selection-choices {
-        display: flex;
-        justify-content: center;
-        color: #fff;
-      }
     }
   }
 </style>
