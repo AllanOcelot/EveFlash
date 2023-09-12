@@ -83,9 +83,6 @@
   import { storeToRefs } from 'pinia'
   const store = useGameStateStore()
   const { defineRounds, defineDifficulty, gameObject } = storeToRefs(store)
-  console.log(gameObject.value)
-  console.log(defineDifficulty.value)
-
 
   let selectionStep = ref(0)
   let rounds = ref('quick')
@@ -130,17 +127,15 @@
       errorMessage.value = 'Please select a difficulty from the provided list.'
       return
     }
-   // if(!defineRounds.value.includes(rounds.value)){
-   //   errorMessage.value = 'Please select a rounds options from the provided list.'
-   //   return
-   // }
-//if(gameObject.value.factions.length < 1 || gameObject.value.factions.length > factionsList.value.length){
-   //   errorMessage.value = 'You must select at least one faction.'
-   //   return
-   // }
-
-    //router.push('/game')
-
+    if(!defineRounds.value.includes(rounds.value)){
+      errorMessage.value = 'Please select a rounds options from the provided list.'
+      return
+    }
+    if(gameObject.value.factions.length < 1 || gameObject.value.factions.length > factionsList.value.length){
+      errorMessage.value = 'You must select at least one faction.'
+      return
+    }
+    router.push('/game')
   }
 
 

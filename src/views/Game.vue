@@ -24,7 +24,10 @@
 
       <div class="score" v-if="loading === false">
         <p>
-          You have completed {{ totalScore }} out of {{ cardsPlayed }} <span> {{ shipData.length }} remaining. </span>
+          You have completed {{ totalScore }} out of {{ cardsPlayed }}
+          <span class="correct">{{ correct }} Correct </span>
+          <span class="incorrect">{{ incorrect }} Incorrect </span>
+          <span> {{ shipData.length }} remaining. </span>
         </p>
       </div>
     </v-main>
@@ -84,6 +87,8 @@
   let cardsPlayed = ref(0)
   let totalScore = ref(0)
   let gameOver = ref(false)
+  let correct = ref(0)
+  let incorrect = ref(0)
   let streak = ref(0)
 
 
@@ -183,9 +188,6 @@
 
 
     await fetchShipData().then( () => {
-      console.log('we fetched the data?')
-      console.log('We loaded the following data')
-      console.log(shipData)
       initCard()
       loading.value = false
     });
@@ -200,6 +202,8 @@
           console.log('We have loaded the data for ' + gameObject.value.factions[i])
           // use spread operator to con cat our two array values into one.
           shipData = [...shipData, ...res.data]
+          shuffleArray(shipData)
+
         }).catch(err => console.log(err))
       }
   }
@@ -224,6 +228,7 @@
   function roundOver(result : string){
     cardsPlayed.value++;
     if(result  === 'correct'){
+      correct.value++
       totalScore.value++
       streak.value++
       if(streak.value % 10 == 0){
@@ -233,6 +238,7 @@
         })
       }
     } else {
+      incorrect.value++
       streak.value = 0
     }
 
@@ -244,6 +250,20 @@
     }else{
       gameOver.value = true
     }
+  }
+
+  //"Fisher-Yates" Sorting
+  function shuffleArray(array: Ship[]){
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+
+  function fetchSettingsFromStore(){
+    //
   }
 
 
@@ -290,6 +310,13 @@
       margin-left: 10px;
       padding-left: 10px;
       border-left: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
     }
   }
 

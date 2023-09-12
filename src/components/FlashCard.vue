@@ -89,7 +89,7 @@
   }
 
   function finished() {
-    emit('finished', cardStatus)
+    emit('finished', cardStatus.value)
   }
 
   onMounted(() => {
