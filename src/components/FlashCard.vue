@@ -111,11 +111,11 @@
 
   // computed
   const factionImage = computed(() => {
-    const imgURL = '/icons/factions/' + props.ship.Faction + '.png'
+    const imgURL = '/images/icons/factions/' + props.ship.Faction + '.png'
     return imgURL
   })
   const techImage = computed(() => {
-    const imgURL = '/icons/tech/' + props.ship.TechLevel + '.png'
+    const imgURL = '/images/icons/tech/' + props.ship.TechLevel + '.png'
     return imgURL
   })
 
