@@ -13,36 +13,32 @@ interface gameObject {
   rounds: string
 }
 
-const defineDifficulty  = <string[]>['easy', 'medium','hard'];
-const defineRounds  = <string[]>['quick', 'standard','full'];
-
-
-
 
 
 export const useGameStateStore = defineStore('gameState', () => {
 
-  // Default, we will select all factions.
-  // Update: to save requests, lets have the default by the 'main 4' factions of the game.
-  const factionList: Array<string> = ['misc','amarr', 'caldari', 'gallente', 'minmatar'];
+  // These values are referenced for game setup.
+  const defineDifficulty  = ref<string[]>(['easy', 'medium','hard']);
+  const defineRounds  = ref<string[]>(['quick', 'standard','full']);
+  const factionList = ref<string[]>(['misc','amarr', 'caldari', 'gallente', 'minmatar']);
 
 
   // Game object tracks all data relating to the instance of the game.
   const gameObject = ref<gameObject>({
-    factions: factionList,
+    factions: factionList.value,
     difficulty: 'easy',
     rounds: 'standard'
   })
 
 
   function setDifficulty( difficulty : string ){
-    if(defineDifficulty.includes(difficulty)){
+    if(defineDifficulty.value.includes(difficulty)){
       gameObject.value.difficulty = difficulty;
     }
   }
 
   function setRounds( rounds : string ){
-    if(defineRounds.includes(rounds)){
+    if(defineRounds.value.includes(rounds)){
       gameObject.value.difficulty = rounds;
     }
   }
@@ -64,12 +60,10 @@ export const useGameStateStore = defineStore('gameState', () => {
 
   // Reset game options,
   function reset(){
-    gameObject.value.factions = factionList
+    gameObject.value.factions = factionList.value
     gameObject.value.difficulty = 'easy'
     gameObject.value.rounds = 'standard'
   }
-
-
 
 
   return {
@@ -80,6 +74,6 @@ export const useGameStateStore = defineStore('gameState', () => {
     removeFaction,
     setRounds,
     setDifficulty,
-    reset,
+    reset
    }
 })

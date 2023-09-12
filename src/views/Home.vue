@@ -41,22 +41,29 @@
           multiple
           class="factionSelection"
         >
-
-        <template v-slot:chip="{ props, item }">
-          <v-chip
-            v-bind="props"
-            :prepend-avatar="'/icons/' + item.title + '.png'"
-            :text="item.title"
-          ></v-chip>
-        </template>
-
+          <template v-slot:chip="{ props, item }">
+            <v-chip
+              v-bind="props"
+              :prepend-avatar="'/icons/' + item.title + '.png'"
+              :text="item.title"
+            ></v-chip>
+          </template>
         </v-autocomplete>
+
+          <v-alert
+            v-if="errorMessage"
+            type="error"
+            title="Warning:"
+            :text="errorMessage"
+          ></v-alert>
+
         </div>
+
         <div class="bottom">
           <v-btn class="blue" @click="changeStepSelection(false)" v-if="selectionStep >= 1">
             Prev
           </v-btn>
-          <v-btn class="blue" @click="changeStepSelection(true)">
+          <v-btn class="blue" @click="startGame()">
             Next
           </v-btn>
         </div>
@@ -76,13 +83,15 @@
   import { storeToRefs } from 'pinia'
   const store = useGameStateStore()
   const { defineRounds, defineDifficulty, gameObject } = storeToRefs(store)
+  console.log(gameObject.value)
+  console.log(defineDifficulty.value)
 
 
-  let selectionStep = ref(0);
-  let rounds = ref('quick');
-  let difficulty = ref('easy');
+  let selectionStep = ref(0)
+  let rounds = ref('quick')
+  let difficulty = ref('easy')
   const factionsList = ref<string[]>(['misc','amarr', 'caldari', 'gallente', 'minmatar'])
-
+  let errorMessage = ref<string>()
 
   interface Empire {
     Name: string,
@@ -107,58 +116,31 @@
 
 
 
-  const EmpiresData = ref<Array<Empire>>([
-    {
-      Name: "amarr",
-      Image: "empire_1.png",
-      Enabled: true,
-      Color1: '#5c3e11',
-      Color2: '#f9f5ba',
-      Selected: true,
-    },
-    {
-      Name: "caldari",
-      Image: "empire_2.png",
-      Enabled: true,
-      Color1: '#0d0e12',
-      Color2: '#adb4bb',
-      Selected: true,
-    },
-    {
-      Name: "gallente",
-      Image: "empire_3.png",
-      Enabled: true,
-      Color1: '#191c1a',
-      Color2: '#bfdddd',
-      Selected: true,
-    },
-    {
-      Name: "minmatar",
-      Image: "empire_4.png",
-      Enabled: true,
-      Color1: '#2e1716',
-      Color2: '#a13131',
-      Selected: true,
-    },
-  ])
-
-  // toggle a faction to 'selected factions' array.
-  function selectFaction(index : number){
-    if(EmpiresData.value[index].Selected === true ){
-      EmpiresData.value[index].Selected = false
-      store.removeFaction(EmpiresData.value[index].Name)
-    } else {
-      EmpiresData.value[index].Selected = true
-      store.addFaction(EmpiresData.value[index].Name)
-    }
-  }
-
   function changeStepSelection(direction : boolean){
     if(direction === true){
       selectionStep.value++
     }else{
       selectionStep.value--
     }
+  }
+
+  function startGame(){
+    console.log(defineDifficulty.value)
+    if(!defineDifficulty.value.includes(difficulty.value)){
+      errorMessage.value = 'Please select a difficulty from the provided list.'
+      return
+    }
+   // if(!defineRounds.value.includes(rounds.value)){
+   //   errorMessage.value = 'Please select a rounds options from the provided list.'
+   //   return
+   // }
+//if(gameObject.value.factions.length < 1 || gameObject.value.factions.length > factionsList.value.length){
+   //   errorMessage.value = 'You must select at least one faction.'
+   //   return
+   // }
+
+    //router.push('/game')
+
   }
 
 
