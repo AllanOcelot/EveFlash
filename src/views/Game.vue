@@ -40,16 +40,16 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  const router = useRouter();
+  import { useGameStateStore } from '@/stores/gameState'
+  import { storeToRefs } from 'pinia'
   import axios from 'axios'
   import JSConfetti from 'js-confetti'
   import FlashCard from '/src/components/FlashCard.vue'
   import EndGame from '/src/components/EndGame.vue'
 
 
-  // Import store.
-  import { useGameStateStore } from '@/stores/gameState'
-  import { storeToRefs } from 'pinia'
+
+  const router = useRouter();
   const store = useGameStateStore()
   const { gameObject } = storeToRefs(store)
 
@@ -193,11 +193,11 @@
       // loop over each faction and get its corrosponding data set,
       for(let i = 0; i< gameObject.value.factions.length; i++){
         console.log('Attempting to load data for ' + gameObject.value.factions[i])
-        await axios.get('/shipData/'+ gameObject.value.factions[i] +'.json').then(res => {
+        await axios.get('/shipData/'+ gameObject.value.factions[i] +'.json').then((res : any ) => {
           console.log('We have loaded the data for ' + gameObject.value.factions[i])
           // use spread operator to con cat our two array values into one.
           shipData.value = [...shipData.value, ...res.data]
-        }).catch(err => console.log(err))
+        }).catch((err:any) => console.log(err))
       }
     shuffleArray(shipData.value)
     setupGameOptions()

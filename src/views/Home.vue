@@ -8,7 +8,7 @@
         <v-tooltip
           activator="parent"
           location="top"
-          origin="centre"
+          origin="center"
           open-delay="220"
           attach="startNew"
         >
@@ -20,7 +20,7 @@
         <v-tooltip
           activator="parent"
           location="bottom"
-          origin="centre"
+          origin="center"
           open-delay="220"
           attach="gameSettings"
         >
@@ -40,9 +40,9 @@
 <script setup lang="ts">
   import { onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  const router = useRouter();
-
   import { useGameStateStore } from '@/stores/gameState'
+
+  const router = useRouter();
   const store = useGameStateStore()
 
   onMounted(() => {
