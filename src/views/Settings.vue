@@ -65,11 +65,11 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
-  const router = useRouter();
-
-
   import { useGameStateStore } from '@/stores/gameState'
   import { storeToRefs } from 'pinia'
+
+  const router = useRouter();
+
   const store = useGameStateStore()
   const { defineRounds, defineDifficulty, gameObject } = storeToRefs(store)
 
