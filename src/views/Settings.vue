@@ -33,7 +33,7 @@
           <template v-slot:chip="{ props, item }">
             <v-chip
               v-bind="props"
-              :prepend-avatar="'/icons/factions/' + item.title + '.png'"
+              :prepend-avatar="'/images/icons/factions/' + item.title + '.png'"
               :text="item.title"
             ></v-chip>
           </template>
