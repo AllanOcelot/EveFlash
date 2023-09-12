@@ -18,14 +18,14 @@
           <p class="config-details">
             I would like to play a
             <v-select
-            :items="['quick', 'standard', 'full']"
+            :items="defineRounds"
             v-model="rounds"
             variant="underlined"
             />
             game of EveFlash, on the
 
             <v-select
-              :items="['easy', 'medium', 'hard']"
+              :items="defineDifficulty"
               v-model="difficulty"
               variant="underlined"
             ></v-select>
@@ -75,7 +75,7 @@
   import { useGameStateStore } from '@/stores/gameState'
   import { storeToRefs } from 'pinia'
   const store = useGameStateStore()
-  const { gameObject } = storeToRefs(store)
+  const { defineRounds, defineDifficulty, gameObject } = storeToRefs(store)
 
 
   let selectionStep = ref(0);

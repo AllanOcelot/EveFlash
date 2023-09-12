@@ -9,9 +9,12 @@ import axios from 'axios'
 // Define our interfaces
 interface gameObject {
   factions: string[],
-  difficulty: number,
-  rounds: number
+  difficulty: string,
+  rounds: string
 }
+
+const defineDifficulty  = <string[]>['easy', 'medium','hard'];
+const defineRounds  = <string[]>['quick', 'standard','full'];
 
 
 
@@ -27,21 +30,19 @@ export const useGameStateStore = defineStore('gameState', () => {
   // Game object tracks all data relating to the instance of the game.
   const gameObject = ref<gameObject>({
     factions: factionList,
-    // 0 - easy: show faction, show tech level. 1 - medium : show faction: hard: show nothing.
     difficulty: 'easy',
-    // divide the total number of cards by.
-    rounds: 0
+    rounds: 'standard'
   })
 
 
   function setDifficulty( difficulty : string ){
-    if(difficulty === 'easy' || difficulty === 'medium' || difficulty === 'hard'){
+    if(defineDifficulty.includes(difficulty)){
       gameObject.value.difficulty = difficulty;
     }
   }
 
-  function setRounds( rounds : number ){
-    if(difficulty === 0 || difficulty === 25 || difficulty === 50){
+  function setRounds( rounds : string ){
+    if(defineRounds.includes(rounds)){
       gameObject.value.difficulty = rounds;
     }
   }
@@ -64,8 +65,8 @@ export const useGameStateStore = defineStore('gameState', () => {
   // Reset game options,
   function reset(){
     gameObject.value.factions = factionList
-    gameObject.value.difficulty = 0
-    gameObject.value.rounds = 0
+    gameObject.value.difficulty = 'easy'
+    gameObject.value.rounds = 'standard'
   }
 
 
@@ -73,6 +74,8 @@ export const useGameStateStore = defineStore('gameState', () => {
 
   return {
     gameObject,
+    defineDifficulty,
+    defineRounds,
     addFaction,
     removeFaction,
     setRounds,
