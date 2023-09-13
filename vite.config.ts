@@ -32,6 +32,13 @@ export default defineConfig({
       '.vue',
     ],
   },
+  css: {
+    preprocessorOptions: {
+        scss: {
+            additionalData: `@import "@/styles/style.scss";`,
+        },
+    },
+  },
   server: {
     port: 3000,
   },

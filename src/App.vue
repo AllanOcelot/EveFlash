@@ -12,8 +12,6 @@
 </script>
 
 <style lang="scss">
-  @import "/src/styles/style.scss";
-
   .main-app.blueprint-background {
     background: #0a0a13;
     background-size: 20px 20px;

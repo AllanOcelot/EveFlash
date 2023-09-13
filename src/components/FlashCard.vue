@@ -1,5 +1,5 @@
 <template>
-  <div class="flashcard" v-if="ship" :class="cardStatus">
+  <div class="flashcard" v-if="ship && shipImage" :class="cardStatus">
     <div class="image" :style="{'background-image': 'url('  + cardData.image + ')'}">
       <div class="faction-icon" v-if="difficulty === 'easy'">
         <img :src="factionImage" alt="Faction">
@@ -118,6 +118,8 @@
     const imgURL = '/images/icons/tech/' + props.ship.TechLevel + '.png'
     return imgURL
   })
+
+  const shipImage = computed(() => "url("+ props.ship.image +")")
 
 
   onMounted(() => {
@@ -266,40 +268,5 @@
 
 
 
-
-
-
-
-
-
-
-
-  .bounce-enter-active {
-    animation: bounce-in .5s;
-  }
-  .bounce-leave-active {
-    animation: bounce-out .1s;
-  }
-
-  @keyframes bounce-in {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1.5);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes bounce-out {
-    0% {
-      opacity: 0.85;
-    }
-    100% {
-      opacity: 0;
-      transition: all 0.3s;
-    }
-  }
 
 </style>

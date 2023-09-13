@@ -260,13 +260,6 @@
     }
   }
 
-  // Transitions
-  .fade-enter-active,.fade-leave-active {
-    transition: opacity .5s
-  }
-  .fade-enter,.fade-leave-active {
-    opacity: 0
-  }
 
   @media screen and (max-width: 800px){
     .score {

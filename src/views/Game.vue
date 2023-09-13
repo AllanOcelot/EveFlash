@@ -1,33 +1,36 @@
 <template>
   <Suspense>
     <v-main class="main-content">
-      <flash-card
-        v-if="loading === false  && gameOver === false"
-        :loading="loading"
-        :ship="selectedShip"
-        :options="answerData"
-        @finished="roundOver"
-      ></flash-card>
-      <EndGame
-        v-if="gameOver === true"
-        :score="(100 * correct) / cardsPlayed"
-        @newGame="router.push('/')"
-      />
-      <div v-if="loading === true" class="pre-loader">
+      <TransitionGroup name="fade">
+        <flash-card
+          v-if="loading === false && gameOver === false"
+          :loading="loading"
+          :ship="selectedShip"
+          :options="answerData"
+          @finished="roundOver"
+        ></flash-card>
+        <div class="score" v-if="loading === false && gameOver === false">
+          <p>
+            You have completed {{ cardsPlayed }} out of {{ shipData.length }}
+            <span class="correct">{{ correct }} Correct </span>
+            <span class="incorrect">{{ incorrect }} Incorrect </span>
+          </p>
+        </div>
+      </TransitionGroup>
+      <Transition name="bounce">
+        <div class="pre-loader" v-if="loading === true">
           <v-progress-circular
           :size="50"
           color="primary"
           indeterminate
         ></v-progress-circular>
       </div>
-
-      <div class="score" v-if="loading === false">
-        <p>
-          You have completed {{ cardsPlayed }} out of {{ shipData.length }}
-          <span class="correct">{{ correct }} Correct </span>
-          <span class="incorrect">{{ incorrect }} Incorrect </span>
-        </p>
-      </div>
+      </Transition>
+      <EndGame
+        v-if="gameOver === true"
+        :score="(100 * correct) / cardsPlayed"
+        @newGame="router.push('/')"
+      />
     </v-main>
 
     <!-- loading state via #fallback slot -->
@@ -281,6 +284,9 @@
   }
 
   .pre-loader {
+    position: fixed;
+    top: calc(50% - 200px);
+    left: calc(50% - 500px);
     text-align: center;
     margin: auto;
     height: 400px;
@@ -321,12 +327,14 @@
     }
   }
 
-  // Transitions
-  .fade-enter-active,.fade-leave-active {
-    transition: opacity .5s
+  .fade-enter-active,
+  .fade-leave-active {
+      transition: opacity 1s ease;
   }
-  .fade-enter,.fade-leave-active {
-    opacity: 0
+
+  .fade-enter-from,
+  .fade-leave-to {
+      opacity: 0;
   }
 
   @media screen and (max-width: 800px){
