@@ -9,8 +9,9 @@
       </div>
       <div class="content">
         <h3>About</h3>
-        <p>This was built to experiment with Vue3 and to give me something to do whilst Docked up.</p>
-        <p>If you like it, consider donating some ISK or not podding me the next time you see me. </p>
+        <p>This was built initially to experiment with Vue3 whilst bored in Eve.<br>
+          If you like it, consider donating some ISK or not podding me the next time you see me. <br>
+          Special shoutout goes to <a href="https://eve-nt.uk/designer/" target="_blank" title="Eve NT"> Eve-NT</a> for making it easier to get ship images.</p>
         <hr>
         <p class="mb-0"><small>Last Updated: 12th August 23</small></p>
         <hr>

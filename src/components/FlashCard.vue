@@ -1,11 +1,25 @@
 <template>
-  <div class="flashcard" v-if="ship && shipImage" :class="cardStatus">
-    <div class="image" :style="{'background-image': 'url('  + cardData.image + ')'}">
+  <div class="flashcard" v-if="ship && cardData.image" :class="cardStatus">
+    <div class="image" :style="{'background-image': 'url('  + ship.Images[shipImageIndex] + ')'}">
       <div class="faction-icon" v-if="difficulty === 'easy'">
         <img :src="factionImage" alt="Faction">
       </div>
       <div class="tech-icon" v-if="ship.TechLevel !== '1' && difficulty != 'hard'">
         <img :src="techImage" alt="Tech level">
+      </div>
+      <div class="imageControl left"
+        v-if="canSelectPrevImage"
+        @click="shipImageIndex--">
+        <v-icon>
+          mdi-menu-left-outline
+        </v-icon>
+      </div>
+      <div class="imageControl right"
+        v-if="canSelectNextImage"
+        @click="shipImageIndex++">
+        <v-icon>
+          mdi-menu-right-outline
+        </v-icon>
       </div>
     </div>
 
@@ -76,6 +90,9 @@
 
   let difficulty = ref<string>('');
 
+  const shipImage = ref<string>();
+  const shipImageIndex = ref<number>(0)
+
   let cardData = ref({
     image: null,
   })
@@ -85,14 +102,10 @@
   const props = defineProps(['ship', 'options'])
   const emit = defineEmits(['finished'])
 
-  function generateRandomImage(){
-    const imageLength = props.ship.Images.length;
-    return props.ship.Images[Math.floor(Math.random() * (imageLength - 0) + 0)];
-  }
 
   function initCard(){
-    cardStatus.value = '';
-    cardData.value.image = generateRandomImage()
+    cardStatus.value = ''
+    cardData.value.image = props.ship.Images[shipImageIndex.value]
   }
 
   function checkEasy(nameInput:string){
@@ -119,7 +132,15 @@
     return imgURL
   })
 
-  const shipImage = computed(() => "url("+ props.ship.image +")")
+  const canSelectPrevImage = computed(() => {
+    return props.ship.Images.length > 0 && shipImageIndex.value != 0
+  })
+  const canSelectNextImage = computed(() => {
+    return props.ship.Images.length > 0 && shipImageIndex.value != props.ship.Images.length-1
+  })
+
+
+
 
 
   onMounted(() => {
@@ -174,6 +195,36 @@
         }
       }
 
+      .imageControl {
+        position: absolute;
+        z-index: 1;
+        color: #fff;
+        top: calc(50% - 30px);
+        height: 60px;
+        width: 60px;
+        font-size: 20px;
+        background: rgba(0,0,0,0.4);
+        line-height: 60px;
+        text-align: center;
+        cursor: pointer;
+        pointer-events:stroke;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+         -khtml-user-select: none;
+           -moz-user-select: none;
+            -ms-user-select: none;
+                user-select: none;
+
+        &.left {
+          border-radius: 0 16px 16px 0;
+          left: 0;
+        }
+        &.right {
+          border-radius: 16px 0 0 16px;
+          right: 0;
+        }
+      }
+
     }
 
     .info {
@@ -201,6 +252,7 @@
       flex-direction: column;
       color: #fff;
       transition: opacity 0.1s;
+      z-index: 10;
 
       h3 {
         font-size: 60px;

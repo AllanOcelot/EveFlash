@@ -7,5 +7,68 @@
     "TechLevel": "1",
     "Tank": "Armor",
     "Images": ["/images/rmra/pp1.png"]
+  },
+  {
+    "Name": "Amarr Shuttle",
+    "Desc": "Small, sleek and useless",
+    "Faction": "amarr",
+    "Type": "shuttle",
+    "TechLevel": "1",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/tt1/1.png","/images/rmra/tt1/2.png","/images/rmra/tt1/3.png"]
+  },
+  {
+    "Name": "Bestower",
+    "Desc": "The book Moby Dick was based upon an encounter with an angry Bestower captain...",
+    "Faction": "amarr",
+    "Type": "hauler",
+    "TechLevel": "1",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/bbst/1.png","/images/rmra/bbst/2.png","/images/rmra/bbst/3.png"]
+  },
+  {
+    "Name": "Sigil",
+    "Desc": "If you see one of these, chances are its slow... steady... not winning the race...",
+    "Faction": "amarr",
+    "Type": "hauler",
+    "TechLevel": "1",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/ssg/1.png","/images/rmra/ssg/2.png","/images/rmra/ssg/3.png"]
+  },
+  {
+    "Name": "Prorator",
+    "Desc": "It's said a cloacking device on this bad boy can bend all known light in space",
+    "Faction": "amarr",
+    "Type": "Transport Ship",
+    "TechLevel": "2",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/ppr/1.png","/images/rmra/ppr/2.png","/images/rmra/ppr/3.png"]
+  },
+  {
+    "Name": "Impel",
+    "Desc": "I 'Impel' you to reconsider shooting me.... that joke works guys.",
+    "Faction": "amarr",
+    "Type": "Transport Ship",
+    "TechLevel": "2",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/impi/1.png","/images/rmra/impi/2.png","/images/rmra/impi/3.png"]
+  },
+  {
+    "Name": "Providence",
+    "Desc": "Yo' momma' so large, the Minmatar nicknamed her 'Providence'!",
+    "Faction": "amarr",
+    "Type": "Transport Ship",
+    "TechLevel": "1",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/pvdc/1.png","/images/rmra/pvdc/2.png","/images/rmra/pvdc/3.png"]
+  },
+  {
+    "Name": "Ark",
+    "Desc": "This bad boy can fit THREE of every animal from Earth",
+    "Faction": "amarr",
+    "Type": "Jump Freighter",
+    "TechLevel": "2",
+    "Tank": "Armor",
+    "Images": ["/images/rmra/kka/1.png","/images/rmra/kka/2.png","/images/rmra/kka/3.png"]
   }
 ]
