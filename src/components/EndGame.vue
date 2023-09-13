@@ -54,7 +54,6 @@
     background: #fff;
     margin: auto;
     width: 1000px;
-    margin-bottom: 0;
     min-height: 400px;
     display: flex;
     box-shadow: 0px 0px 50px rgb(0 0 0);

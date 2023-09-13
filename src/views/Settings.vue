@@ -76,7 +76,7 @@
   let selectionStep = ref(0)
   let rounds = ref('quick')
   let difficulty = ref('easy')
-  const factionsList = ref<string[]>(['misc','amarr', 'caldari', 'gallente', 'minmatar'])
+  const factionsList = ref<string[]>(['misc','amarr', 'caldari', 'gallente', 'minmatar', 'sistersofeve'])
   let errorMessage = ref<string>()
 
   interface Empire {
