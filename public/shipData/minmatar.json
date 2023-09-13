@@ -2,7 +2,7 @@
   {
     "Name": "Reaper",
     "Desc": "A teeny tiny, mostly harmless ship of the Minmatar Republic.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Corvette",
     "TechLevel": "1",
     "Tank": "Shield",
@@ -12,7 +12,7 @@
   {
     "Name": "Minmatar Shuttle",
     "Desc": "It's like paper, but less stable.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Shuttle",
     "TechLevel": "1",
     "Tank": "N/A",
@@ -22,7 +22,7 @@
   {
     "Name": "Hoarder",
     "Desc": "It hauls ammo, slowly.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Hauler",
     "TechLevel": "1",
     "Tank": "Armor or Shields",
@@ -32,7 +32,7 @@
   {
     "Name": "Mammoth",
     "Desc": "This guy ain't wooly! What the heck!?",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Hauler",
     "TechLevel": "1",
     "Tank": "Armor or Shields",
@@ -42,7 +42,7 @@
   {
     "Name": "Wreathe",
     "Desc": "This guy ain't wooly! What the heck!?",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Hauler",
     "TechLevel": "1",
     "Tank": "Armor or Shields",
@@ -52,7 +52,7 @@
   {
     "Name": "Prowler",
     "Desc": "I wonder what sound it makes when it explodes?",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Transport Ship",
     "TechLevel": "2",
     "Tank": "Armor or Shields",
@@ -62,7 +62,7 @@
   {
     "Name": "Mastodon",
     "Desc": "Haha, frontline Resupply goes brrrr",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Transport Ship",
     "TechLevel": "2",
     "Tank": "Armor or Shields",
@@ -72,7 +72,7 @@
   {
     "Name": "Fenrir",
     "Desc": "Fenir goes Far-ir... than anything else!",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Freighter",
     "TechLevel": "1",
     "Tank": "Armor or Shields",
@@ -82,7 +82,7 @@
   {
     "Name": "Nomad",
     "Desc": "Noma(n)d be crazy enough to undock this in LowSec...",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Jump Freighter",
     "TechLevel": "2",
     "Tank": "Armor or Shields",
@@ -92,7 +92,7 @@
   {
     "Name": "Slasher",
     "Desc": "Cut my life into pieces, this is my last few ISK",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Frigate",
     "TechLevel": "1",
     "Tank": "Shields",
@@ -102,7 +102,7 @@
   {
     "Name": "Probe",
     "Desc": "NO! It's not that kind of probe, for god's sake...",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Frigate",
     "TechLevel": "1",
     "Tank": "Armor or Shields",
@@ -112,7 +112,7 @@
   {
     "Name": "Rifter",
     "Desc": "Iconic, sleek, sexy.... ok, enough about me, this is a Rifter!",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Frigate",
     "TechLevel": "1",
     "Tank": "Armor or Shields",
@@ -122,7 +122,7 @@
   {
     "Name": "Breacher",
     "Desc": "Doesn't it look like a kite? Guys... Guys!?",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Frigate",
     "TechLevel": "1",
     "Tank": "Shields",
@@ -132,7 +132,7 @@
   {
     "Name": "Burst",
     "Desc": "Bursting onto the battlefield, am I right?",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Frigate",
     "TechLevel": "1",
     "Tank": "Shields",
@@ -142,7 +142,7 @@
   {
     "Name": "Vigil",
     "Desc": "A vigil? You need to be praying to fly this rust bucket!",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Frigate",
     "TechLevel": "1",
     "Tank": "Shields",
@@ -152,9 +152,9 @@
   {
     "Name": "Vigil Fleet Issue",
     "Desc": "The Fleet Budget was cut, AGAIN.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Navy Frigate",
-    "TechLevel": "Faction",
+    "TechLevel": "faction",
     "Tank": "Armor or Shields",
     "Turret": "Missile",
     "Images": ["/images/bzst/16/1.png","/images/bzst/16/2.png"]
@@ -162,9 +162,9 @@
   {
     "Name": "Republic Fleet Firetail",
     "Desc": "The firetail is named after the fate it's pilots often meet...",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Navy Frigate",
-    "TechLevel": "Faction",
+    "TechLevel": "faction",
     "Tank": "Armor or Shields",
     "Turret": "Projectile",
     "Images": ["/images/bzst/17/1.png","/images/bzst/17/2.png"]
@@ -172,9 +172,9 @@
   {
     "Name": "Probe Fleet Issue",
     "Desc": "If you run out of Space-Toilet-Paper, have a probe fleet spare, just incase...",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Navy Frigate",
-    "TechLevel": "Faction",
+    "TechLevel": "faction",
     "Tank": "Armor or Shields",
     "Turret": "Missile",
     "Images": ["/images/bzst/18/1.png","/images/bzst/18/2.png"]
@@ -182,7 +182,7 @@
   {
     "Name": "Claw",
     "Desc": "It's more like a paw in my opinion...",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Interceptor",
     "TechLevel": "2",
     "Tank": "Armor",
@@ -192,7 +192,7 @@
   {
     "Name": "Stiletto",
     "Desc": "Sharp, pointing and good for long nights on the town.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Interceptor",
     "TechLevel": "2",
     "Tank": "Armor or Shields",
@@ -202,7 +202,7 @@
   {
     "Name": "Jaguar",
     "Desc": "Don't play with this kitty, or do, tells us all the results!",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Assault Frigate",
     "TechLevel": "2",
     "Tank": "Shields",
@@ -212,7 +212,7 @@
   {
     "Name": "Wolf",
     "Desc": "A wise man once sang 'Bark at the moon' - this ship does NOT BARK.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Assault Frigate",
     "TechLevel": "2",
     "Tank": "Armor",
@@ -222,7 +222,7 @@
   {
     "Name": "Cheetah",
     "Desc": "The guy who sold me one said it was fast. That man was lying.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Covert Ops",
     "TechLevel": "2",
     "Tank": "Armor or Shields",
@@ -232,7 +232,7 @@
   {
     "Name": "Hound",
     "Desc": "Loyal, Lovely and oh so very long. Get your mind out of the gutter...",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Covert Ops",
     "TechLevel": "2",
     "Tank": "Armor or Shields",
@@ -242,7 +242,7 @@
   {
     "Name": "Hyena",
     "Desc": "When a mummy Vigil and a Daddy Vigial... file for divorce, you get the Hyena.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Electronic Attack Ship",
     "TechLevel": "2",
     "Tank": "Armor or Shields",
@@ -252,7 +252,7 @@
   {
     "Name": "Scalpel",
     "Desc": "Nurse, hand me that small, sharp, pointy ship please. Nevermind, the patient died.",
-    "Faction": "Minmatar",
+    "Faction": "minmatar",
     "Type": "Logistics Frigates",
     "TechLevel": "2",
     "Tank": "Shields",
