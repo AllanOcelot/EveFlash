@@ -18,7 +18,7 @@ The idea is to expose you to the Ships in a FlashCard style game, once you've le
   - 3D ship view
   - Ship data with ALL Eve online ships
   - Different difficulties will require different inputs / questions. ( i.e - what type of tank does this ship have )
-  - Link Ship Data to EveWiki if people with to learn more (?)
+  - Link Ship Data to EveWiki if people wish to learn more (?)
 
 ## To Contribute:
 I'm always eager for people to contribute, I'd be especially thankful if people wish to correct ship data.
